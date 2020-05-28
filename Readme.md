@@ -1,10 +1,10 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Mariya Turmasova](https://up.htmlacademy.ru/javascript/20/user/1067017).
-* Наставник: `Неизвестно`.
+* Наставник: [Ivan Chernobuk](https://htmlacademy.ru/profile/id237614).
 
 ---
-
+test
 _Не удаляйте и не обращайте внимание на файлы:_<br>
 _`.editorconfig`, `.eslintrc`, `.gitattributes`, `.gitignore`, `.travis.yml`, `package-lock.json`, `package.json`._
 
