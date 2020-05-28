@@ -4,7 +4,7 @@
 * Наставник: [Ivan Chernobuk](https://htmlacademy.ru/profile/id237614).
 
 ---
-
+test
 _Не удаляйте и не обращайте внимание на файлы:_<br>
 _`.editorconfig`, `.eslintrc`, `.gitattributes`, `.gitignore`, `.travis.yml`, `package-lock.json`, `package.json`._
 
