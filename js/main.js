@@ -17,7 +17,7 @@ var similarAdvertTemplate = document.querySelector('#pin');
 var newAdvert = similarAdvertTemplate.content.querySelector('.map__pin');
 
 var getRandomElement = function(array) {
-  return array[Math.floor(array.length*Math.random())];
+  return array[Math.floor(array.length * Math.random())];
 };
 
 var map = document.querySelector('.map');
@@ -25,25 +25,25 @@ map.classList.remove('map--faded');
 
 var mockOffers = [];
 
-for (var i=0; i<NUMBER_ADVERT; i++) {
+for (var i = 0; i < NUMBER_ADVERT; i++) {
 
   var advert = {
-    author : {avatar: 'img/avatars/user0' + Math.floor(NUMBER_ADVERT*Math.random()) + '.png'}, //где {{xx}} это число от 1 до 8 с ведущим нулём. Например, 01, 02 и т. д. Адреса изображений не повторяются
+    author : {avatar: 'img/avatars/user0' + Math.floor(NUMBER_ADVERT*Math.random() + 1) + '.png'}, //где {{xx}} это число от 1 до 8 с ведущим нулём. Например, 01, 02 и т. д. Адреса изображений не повторяются
     offer : {
-      title: randomElement(titleArray), //строка, заголовок предложения
-      address: randomElement(addressArray),// строка, адрес предложения. Для простоты пусть пока представляет собой запись вида "{{location.x}}, {{location.y}}", например, "600, 350"
-      price: randomElement(priceArray),//число, стоимость
-      type: randomElement(typeArray), // строка с одним из четырёх фиксированных значений: palace, flat, house или bungalo
-      rooms: randomElement(roomsArray),//число, количество комнат
-      guests: randomElement(guestsArray),//число, количество гостей, которое можно разместить
-      checkin: randomElement(checkinArray),//строка с одним из трёх фиксированных значений: 12:00, 13:00 или 14:00,
-      checkout: randomElement(checkoutArray),//строка с одним из трёх фиксированных значений: 12:00, 13:00 или 14:00
-      features: randomElement(featuresArray),//массив строк случайной длины из ниже предложенных: "wifi", "dishwasher", "parking", "washer", "elevator", "conditioner",
-      description: randomElement(descriptionArray), //строка с описанием,
-      photos: randomElement(photosArray)//массив строк случайной длины, содержащий адреса фотографий "http://o0.github.io/assets/images/tokyo/hotel1.jpg", "http://o0.github.io/assets/images/tokyo/hotel2.jpg", "http://o0.github.io/assets/images/tokyo/hotel3.jpg"
+      title: getRandomElement(titleArray), //строка, заголовок предложения
+      address: getRandomElement(addressArray),// строка, адрес предложения. Для простоты пусть пока представляет собой запись вида "{{location.x}}, {{location.y}}", например, "600, 350"
+      price: getRandomElement(priceArray),//число, стоимость
+      type: getRandomElement(typeArray), // строка с одним из четырёх фиксированных значений: palace, flat, house или bungalo
+      rooms: getRandomElement(roomsArray),//число, количество комнат
+      guests: getRandomElement(guestsArray),//число, количество гостей, которое можно разместить
+      checkin: getRandomElement(checkinArray),//строка с одним из трёх фиксированных значений: 12:00, 13:00 или 14:00,
+      checkout: getRandomElement(checkoutArray),//строка с одним из трёх фиксированных значений: 12:00, 13:00 или 14:00
+      features: getRandomElement(featuresArray),//массив строк случайной длины из ниже предложенных: "wifi", "dishwasher", "parking", "washer", "elevator", "conditioner",
+      description: getRandomElement(descriptionArray), //строка с описанием,
+      photos: getRandomElement(photosArray)//массив строк случайной длины, содержащий адреса фотографий "http://o0.github.io/assets/images/tokyo/hotel1.jpg", "http://o0.github.io/assets/images/tokyo/hotel2.jpg", "http://o0.github.io/assets/images/tokyo/hotel3.jpg"
     },
     location : {
-      x: 40*Math.random(), //случайное число, координата x метки на карте. Значение ограничено размерами блока, в котором перетаскивается метка.
+      x: 1100 * Math.random(), //случайное число, координата x метки на карте. Значение ограничено размерами блока, в котором перетаскивается метка.
       y: 130 +  Math.random() * 500 //случайное число, координата y метки на карте от 130 до 630.
     }
   };
@@ -67,7 +67,7 @@ var renderAdvert = function (advert) {
   advertElement.children[0].src = advert.author.avatar;
   advertElement.children[0].alt = advert.offer.title;
   advertElement.style.left = advert.location.x + 'px';
-  advertElement.style.top = advert.location.y +'px';
+  advertElement.style.top = advert.location.y + 'px';
 
   return advertElement;
 };
