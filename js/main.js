@@ -41,9 +41,8 @@ function getRandomInteger(min, max) {
 var map = document.querySelector('.map');
 map.classList.remove('map--faded');
 
-var mockOffers = [];
-
 var getMocks = function(number) {
+  var mockOffers = [];
 
   for (var i = 0; i < number; i++) {
 
@@ -73,8 +72,6 @@ var getMocks = function(number) {
   return mockOffers;
 }
 
-var mocks = getMocks(NUMBER_ADVERT);
-
 var renderAdvert = function (variantStorage) {
   var advertElement = newAdvert.cloneNode(true);
   advertElement.children[0].src = variantStorage.author.avatar;
@@ -85,8 +82,20 @@ var renderAdvert = function (variantStorage) {
   return advertElement;
 };
 
-var fragment = document.createDocumentFragment();
-for (var j = 0; j < mockOffers.length; j++) {
-  fragment.appendChild(renderAdvert(mockOffers[j]));
+var getElementFragment = function (offers) {
+
+   var fragment = document.createDocumentFragment();
+
+  for (var i = 0; i < offers.length; i++) {
+
+    fragment.appendChild(renderAdvert(offers[i]));
+
+  }
+
+  return fragment;
+
 }
-similarListElement.appendChild(fragment);
+
+var mocks = getMocks(NUMBER_ADVERT);
+
+similarListElement.appendChild(getElementFragment(mocks));
