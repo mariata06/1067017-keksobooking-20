@@ -17,6 +17,13 @@ var PIN_Y_GAP = 70; // высота метки для раcчета коорди
 var WIDTH_BLOCK = 1100; // максимум по X где может находиться метка
 var PIN_Y_MIN = 130;
 var PIN_Y_MAX = 630;
+var MIN_PRICE = new Map ([
+  ['bungalo', 0],
+  ['flat', 1000],
+  ['house', 5000],
+  ['palace', 10000],
+]);
+var MAX_PRICE = 1000000;
 var titleArray = ['Bungalos', 'Prince palace', 'Down town Appartments']; // строка, заголовок предложения
 var typeArray = ['palace', 'flat', 'house', 'bungalo']; // строка с одним из четырёх фиксированных значений: palace, flat, house или bungalo
 var checkinArray = ['12:00', '13:00', '14:00']; // строка с одним из трёх фиксированных значений: 12:00, 13:00 или 14:00,
@@ -34,10 +41,57 @@ var fieldsetForms = adForm.getElementsByTagName('fieldset');
 var fieldsetFilters = mapFiltersForm.getElementsByTagName('fieldset');
 var selectFilters = mapFiltersForm.getElementsByTagName('select');
 var mapPinMain = document.querySelector('.map__pin--main');
+var selectQtyRooms = adForm.querySelector('.room_number');
+var selectQtyGuests = adForm.querySelector('.capacity');
+var titleInput = adForm.querySelector('.title');
+var pricePerNight = adForm.querySelector('.price');
+var typeOfHousing = adForm.querySelector('.housing_type');
 
+typeOfHousing.addEventListener('onchange', function() {
+  pricePerNight.min = MIN_PRICE[typeOfHousing.value];
+  console.log(pricePerNight.min.value);
+});
+
+pricePerNight.max = MAX_PRICE;
+
+titleInput.addEventListener('invalid', function () {
+  if (titleInput.validity.tooShort(30)) {
+    titleInput.setCustomValidity('Заголовок объявления должен состоять минимум из 30 символов');
+  } else if (titleInput.validity.tooLong) {
+    titleInput.setCustomValidity('Заголовок объявления не должен превышать 100 символов');
+  } else if (titleInput.validity.valueMissing) {
+    titleInput.setCustomValidity('Обязательное поле');
+  } else {
+    titleInput.setCustomValidity('');
+  }
+});
+
+pricePerNight.addEventListener('invalid', function () {
+  if (priceOfHousing.validity.rangeUnderflow) {
+    priceOfHousing.setCustomValidity('Цена за ночь должна быть не меньше ' + pricePerNight.min);
+  } else if (pricePerNight.validity.rangeOverflow) {
+    pricePerNight.setCustomValidity('Стоимость за ночь не должна превышать ' + MAX_PRICE + ' рублей');
+  } else if (priceperNight.validity.valueMissing) {
+    pricePerNight.setCustomValidity('Обязательное поле');
+  } else {
+    priceOfHousing.setCustomValidity('');
+  }
+});
+
+/*
+selectQtyRooms.addEventListener('invalid', function () {
+  if (selectQtyRooms.value !== selectQtyGuests.value) {
+    selectQtyRooms.setCustomValidity('Введите подходящее число комнат или гостей')
+  } else if (selectQtyRooms.value == 100 && selectQtyGuests == 'не для гостей') {
+
+  }
+
+});
+*/
 mapPinMain.addEventListener('mousedown', lMouseButton);
 
 var flagMapActivation = false;
+
 function lMouseButton(e) {
   if (typeof e === 'object') {
     if (e.button === 0) {
