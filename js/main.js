@@ -105,7 +105,7 @@ var getMocks = function (number) {
         checkin: getRandomElement(checkinArray), // строка с одним из трёх фиксированных значений: 12:00, 13:00 или 14:00,
         checkout: getRandomElement(checkoutArray), // строка с одним из трёх фиксированных значений: 12:00, 13:00 или 14:00
         features: getRandomElement(featuresArray), // массив строк случайной длины из ниже предложенных: "wifi", "dishwasher", "parking", "washer", "elevator", "conditioner",
-        description: getRandomElement(descriptionArray), //строка с описанием,
+        description: getRandomElement(descriptionArray), // строка с описанием,
         photos: getRandomElement(photosArray) // массив строк случайной длины, содержащий адреса фотографий "http://o0.github.io/assets/images/tokyo/hotel1.jpg", "http://o0.github.io/assets/images/tokyo/hotel2.jpg", "http://o0.github.io/assets/images/tokyo/hotel3.jpg"
       },
       location: {
