@@ -28,7 +28,53 @@ var photosArray = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http:/
 var similarListElement = document.querySelector('.map__pins');
 var similarAdvertTemplate = document.querySelector('#pin');
 var newAdvert = similarAdvertTemplate.content.querySelector('.map__pin');
+var mapFiltersForm = document.querySelector('.map__filters');
+var adForm = document.querySelector('.ad-form');
+var fieldsetForms = adForm.getElementsByTagName('fieldset');
+var fieldsetFilters = mapFiltersForm.getElementsByTagName('fieldset');
+var selectFilters = mapFiltersForm.getElementsByTagName('select');
+var mapPinMain = document.querySelector('.map__pin--main');
 
+mapPinMain.addEventListener('mousedown', lMouseButton);
+
+var flagMapActivation = false;
+function lMouseButton(e) {
+  if (typeof e === 'object') {
+    if (e.button == 0) {
+      if (!flagMapActivation) {
+        activateMap();
+        flagMapActivation = true;
+      }
+
+      activateElementsOfForm(fieldsetForms);
+      activateElementsOfForm(fieldsetFilters);
+      activateElementsOfForm(selectFilters);
+
+      adForm.classList.remove('ad-form--disabled');
+    }
+  }
+}
+//console.log(fieldsetForms);
+
+mapFiltersForm.classList.add('ad-form--disabled');
+
+var activateElementsOfForm = function(tagArray) {
+  for (var i = 0; i < tagArray.length; i++) {
+    tagArray[i].removeAttribute('disabled');
+  }
+};
+
+var disactivate = function(tagArray) {
+  for (var i = 0; i < tagArray.length; i++) {
+    tagArray[i].setAttribute('disabled', true);
+  }
+};
+
+disactivate(fieldsetForms);
+disactivate(fieldsetFilters);
+disactivate(selectFilters);
+//adForm.classList.add('ad-form--disabled');
+//fieldsetForm.disabled = true;
 var getRandomElement = function (array) {
   return array[Math.floor(array.length * Math.random())];
 };
@@ -39,15 +85,16 @@ function getRandomInteger(min, max) {
 }
 
 var map = document.querySelector('.map');
-map.classList.remove('map--faded');
 
-var getMocks = function(number) {
+var getMocks = function (number) {
   var mockOffers = [];
 
   for (var i = 0; i < number; i++) {
 
     var advert = {
-      author: {avatar: 'img/avatars/user0' + (i + 1) + '.png'}, //где {{xx}} это число от 1 до 8 с ведущим нулём. Например, 01, 02 и т. д. Адреса изображений не повторяются
+      author: {
+        avatar: 'img/avatars/user0' + (i + 1) + '.png'
+      }, //где {{xx}} это число от 1 до 8 с ведущим нулём. Например, 01, 02 и т. д. Адреса изображений не повторяются
       offer: {
         title: getRandomElement(titleArray), //строка, заголовок предложения
         address: getRandomInteger(LOC_X_MIN, LOC_X_MAX) + ', ' + getRandomInteger(LOC_Y_MIN, LOC_Y_MAX), // строка, адрес предложения. Для простоты пусть пока представляет собой запись вида "{{location.x}}, {{location.y}}", например, "600, 350"
@@ -84,7 +131,7 @@ var renderAdvert = function (variantStorage) {
 
 var getElementFragment = function (offers) {
 
-   var fragment = document.createDocumentFragment();
+  var fragment = document.createDocumentFragment();
 
   for (var i = 0; i < offers.length; i++) {
 
@@ -96,6 +143,10 @@ var getElementFragment = function (offers) {
 
 }
 
-var mocks = getMocks(NUMBER_ADVERT);
+var activateMap = function () {
+  var mocks = getMocks(NUMBER_ADVERT);
+  map.classList.remove('map--faded');
+  similarListElement.appendChild(getElementFragment(mocks));
+}
 
-similarListElement.appendChild(getElementFragment(mocks));
+
