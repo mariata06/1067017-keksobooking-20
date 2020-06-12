@@ -17,12 +17,12 @@ var PIN_Y_GAP = 70; // высота метки для раcчета коорди
 var WIDTH_BLOCK = 1100; // максимум по X где может находиться метка
 var PIN_Y_MIN = 130;
 var PIN_Y_MAX = 630;
-var titleArray = ['Bungalos', 'Prince palace', 'Down town Appartments']; //строка, заголовок предложения
+var titleArray = ['Bungalos', 'Prince palace', 'Down town Appartments']; // строка, заголовок предложения
 var typeArray = ['palace', 'flat', 'house', 'bungalo']; // строка с одним из четырёх фиксированных значений: palace, flat, house или bungalo
-var checkinArray = ['12:00', '13:00', '14:00']; //строка с одним из трёх фиксированных значений: 12:00, 13:00 или 14:00,
-var checkoutArray = ['12:00', '13:00', '14:00']; //строка с одним из трёх фиксированных значений: 12:00, 13:00 или 14:00
-var featuresArray = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner']; //массив строк случайной длины из ниже предложенных: "wifi", "dishwasher", "parking", "washer", "elevator", "conditioner",
-var descriptionArray = ['descrText1', 'descrText2', 'descrText3']; //строка с описанием,
+var checkinArray = ['12:00', '13:00', '14:00']; // строка с одним из трёх фиксированных значений: 12:00, 13:00 или 14:00,
+var checkoutArray = ['12:00', '13:00', '14:00']; // трока с одним из трёх фиксированных значений: 12:00, 13:00 или 14:00
+var featuresArray = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner']; // массив строк случайной длины из ниже предложенных: "wifi", "dishwasher", "parking", "washer", "elevator", "conditioner",
+var descriptionArray = ['descrText1', 'descrText2', 'descrText3']; // строка с описанием,
 var photosArray = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 
 var similarListElement = document.querySelector('.map__pins');
@@ -54,7 +54,7 @@ function lMouseButton(e) {
     }
   }
 }
-//console.log(fieldsetForms);
+// console.log(fieldsetForms);
 
 mapFiltersForm.classList.add('ad-form--disabled');
 
@@ -73,8 +73,8 @@ var disactivate = function (tagArray) {
 disactivate(fieldsetForms);
 disactivate(fieldsetFilters);
 disactivate(selectFilters);
-//adForm.classList.add('ad-form--disabled');
-//fieldsetForm.disabled = true;
+// adForm.classList.add('ad-form--disabled');
+// fieldsetForm.disabled = true;
 var getRandomElement = function (array) {
   return array[Math.floor(array.length * Math.random())];
 };
@@ -94,23 +94,23 @@ var getMocks = function (number) {
     var advert = {
       author: {
         avatar: 'img/avatars/user0' + (i + 1) + '.png'
-      }, //где {{xx}} это число от 1 до 8 с ведущим нулём. Например, 01, 02 и т. д. Адреса изображений не повторяются
+      }, // где {{xx}} это число от 1 до 8 с ведущим нулём. Например, 01, 02 и т. д. Адреса изображений не повторяются
       offer: {
-        title: getRandomElement(titleArray), //строка, заголовок предложения
+        title: getRandomElement(titleArray), // строка, заголовок предложения
         address: getRandomInteger(LOC_X_MIN, LOC_X_MAX) + ', ' + getRandomInteger(LOC_Y_MIN, LOC_Y_MAX), // строка, адрес предложения. Для простоты пусть пока представляет собой запись вида "{{location.x}}, {{location.y}}", например, "600, 350"
         price: getRandomInteger(MIN_PRICE, MAX_PRICE), // число, стоимость
         type: getRandomElement(typeArray), // строка с одним из четырёх фиксированных значений: palace, flat, house или bungalo
-        rooms: getRandomInteger(MIN_QTY_ROOMS, MAX_QTY_ROOMS), //число, количество комнат
-        guests: getRandomInteger(MIN_QTY_GUEST, MAX_QTY_QUEST), //число, количество гостей, которое можно разместить
-        checkin: getRandomElement(checkinArray), //строка с одним из трёх фиксированных значений: 12:00, 13:00 или 14:00,
-        checkout: getRandomElement(checkoutArray), //строка с одним из трёх фиксированных значений: 12:00, 13:00 или 14:00
-        features: getRandomElement(featuresArray), //массив строк случайной длины из ниже предложенных: "wifi", "dishwasher", "parking", "washer", "elevator", "conditioner",
+        rooms: getRandomInteger(MIN_QTY_ROOMS, MAX_QTY_ROOMS), // число, количество комнат
+        guests: getRandomInteger(MIN_QTY_GUEST, MAX_QTY_QUEST), // число, количество гостей, которое можно разместить
+        checkin: getRandomElement(checkinArray), // строка с одним из трёх фиксированных значений: 12:00, 13:00 или 14:00,
+        checkout: getRandomElement(checkoutArray), // строка с одним из трёх фиксированных значений: 12:00, 13:00 или 14:00
+        features: getRandomElement(featuresArray), // массив строк случайной длины из ниже предложенных: "wifi", "dishwasher", "parking", "washer", "elevator", "conditioner",
         description: getRandomElement(descriptionArray), //строка с описанием,
-        photos: getRandomElement(photosArray) //массив строк случайной длины, содержащий адреса фотографий "http://o0.github.io/assets/images/tokyo/hotel1.jpg", "http://o0.github.io/assets/images/tokyo/hotel2.jpg", "http://o0.github.io/assets/images/tokyo/hotel3.jpg"
+        photos: getRandomElement(photosArray) // массив строк случайной длины, содержащий адреса фотографий "http://o0.github.io/assets/images/tokyo/hotel1.jpg", "http://o0.github.io/assets/images/tokyo/hotel2.jpg", "http://o0.github.io/assets/images/tokyo/hotel3.jpg"
       },
       location: {
-        x: getRandomInteger(X_SHIFT, WIDTH_BLOCK - 2 * X_SHIFT), //случайное число, координата x метки на карте. Значение ограничено размерами блока, в котором перетаскивается метка.
-        y: getRandomInteger(PIN_Y_MIN, PIN_Y_MAX) //случайное число, координата y метки на карте от 130 до 630.
+        x: getRandomInteger(X_SHIFT, WIDTH_BLOCK - 2 * X_SHIFT), // случайное число, координата x метки на карте. Значение ограничено размерами блока, в котором перетаскивается метка.
+        y: getRandomInteger(PIN_Y_MIN, PIN_Y_MAX) // случайное число, координата y метки на карте от 130 до 630.
       }
     };
 
