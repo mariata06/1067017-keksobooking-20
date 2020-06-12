@@ -40,7 +40,7 @@ mapPinMain.addEventListener('mousedown', lMouseButton);
 var flagMapActivation = false;
 function lMouseButton(e) {
   if (typeof e === 'object') {
-    if (e.button == 0) {
+    if (e.button === 0) {
       if (!flagMapActivation) {
         activateMap();
         flagMapActivation = true;
@@ -58,13 +58,13 @@ function lMouseButton(e) {
 
 mapFiltersForm.classList.add('ad-form--disabled');
 
-var activateElementsOfForm = function(tagArray) {
+var activateElementsOfForm = function (tagArray) {
   for (var i = 0; i < tagArray.length; i++) {
     tagArray[i].removeAttribute('disabled');
   }
 };
 
-var disactivate = function(tagArray) {
+var disactivate = function (tagArray) {
   for (var i = 0; i < tagArray.length; i++) {
     tagArray[i].setAttribute('disabled', true);
   }
@@ -117,7 +117,7 @@ var getMocks = function (number) {
     mockOffers.push(advert);
   }
   return mockOffers;
-}
+};
 
 var renderAdvert = function (variantStorage) {
   var advertElement = newAdvert.cloneNode(true);
@@ -141,12 +141,10 @@ var getElementFragment = function (offers) {
 
   return fragment;
 
-}
+};
 
 var activateMap = function () {
   var mocks = getMocks(NUMBER_ADVERT);
   map.classList.remove('map--faded');
   similarListElement.appendChild(getElementFragment(mocks));
-}
-
-
+};
