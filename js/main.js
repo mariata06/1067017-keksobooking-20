@@ -54,7 +54,7 @@ var pricePerNight = adForm.querySelector('.price');
 var typeOfHousing = adForm.querySelector('.housing_type');
 var qtyRooms = adForm.querySelector('.room_number');
 var qtyGuests = adForm.querySelector('.capacity');
-var addressInput = adForm.querySelectorAll('.address');
+var addressInput = adForm.querySelector('.address');
 
 typeOfHousing.addEventListener('change', function () {
   console.log(MIN_PRICE[typeOfHousing.value]);
@@ -117,7 +117,7 @@ function leftMouseButtonClickHandler(e) {
 
     var xCoordinate = mapPinMain.style.left;
     var yCoordinate = mapPinMain.style.top;
-    addressInput[0].value = Number(xCoordinate.substr(0, xCoordinate.length-2)) + MUFFIN_WIDTH / 2 +', '+ (Number(yCoordinate.substr(0, yCoordinate.length-2)) + MUFFIN_HEIGHT);
+    addressInput.value = Number(xCoordinate.substr(0, xCoordinate.length-2)) + MUFFIN_WIDTH / 2 +', '+ (Number(yCoordinate.substr(0, yCoordinate.length-2)) + MUFFIN_HEIGHT);
   }
 }
 
