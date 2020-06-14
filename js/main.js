@@ -63,11 +63,7 @@ typeOfHousing.addEventListener('change', function () {
   // console.log(pricePerNight.min);
 });
 
-qtyRooms.addEventListener('change', function () {
-  // console.log(CAPACITY[qtyRooms.value]);
-  qtyGuests.max = CAPACITY[qtyRooms.value];
-  // console.log(qtyGuests.max);
-});
+
 
 pricePerNight.max = MAX_PRICE;
 
@@ -93,14 +89,27 @@ pricePerNight.addEventListener('invalid', function () {
   }
 });
 
-qtyGuests.addEventListener('invalid', function () {
+qtyRooms.addEventListener('change', function () {
+  qtyGuests.max = CAPACITY[qtyRooms.value];
+  qtyGuests.value = qtyRooms.value;
+  //console.log(CAPACITY[qtyRooms.value]);
+  console.log(qtyGuests.max);
+});
+
+qtyGuests.addEventListener('change', function () {
   if (qtyGuests.validity.rangeOverflow) {
     qtyGuests.setCustomValidity('Количество гостей должна быть не больше ' + qtyGuests.max);
   } else {
     qtyGuests.setCustomValidity('');
   }
+  console.log(qtyGuests.validity.rangeOverflow);
 });
 
+/*
+adForm.addEventListener('submit', function () {
+  adForm.submit();
+});
+*/
 /*
 selectQtyRooms.addEventListener('invalid', function () {
   if (selectQtyRooms.value !== selectQtyGuests.value) {
@@ -110,11 +119,11 @@ selectQtyRooms.addEventListener('invalid', function () {
   }
 });
 */
-mapPinMain.addEventListener('mousedown', clickLeftMouseButton);
+mapPinMain.addEventListener('mousedown', leftMouseButtonClickHandler);
 
 var flagMapActivation = false;
 
-function clickLeftMouseButton(e) {
+function leftMouseButtonClickHandler(e) {
   if (typeof e === 'object' && e.button === 0) {
     if (!flagMapActivation) {
       activateMap();
@@ -129,8 +138,8 @@ function clickLeftMouseButton(e) {
 
     var xCoordinate = mapPinMain.style.left;
     var yCoordinate = mapPinMain.style.top;
-    addressInput.value = Number(xCoordinate.substr(0, xCoordinate.length-2)) + MUFFIN_WIDTH / 2 +', '+ Number(Number(yCoordinate.substr(0, yCoordinate.length-2)) + MUFFIN_HEIGHT);
-    console.log(addressInput.value);
+    addressInput[0].value = Number(xCoordinate.substr(0, xCoordinate.length-2)) + MUFFIN_WIDTH / 2 +', '+ (Number(yCoordinate.substr(0, yCoordinate.length-2)) + MUFFIN_HEIGHT);
+    //console.log(addressInput[0].value);
     //console.log(mapPinMain);
   }
 }
@@ -142,25 +151,12 @@ var calculateCoordinates = function() {
 */
 mapFiltersForm.classList.add('ad-form--disabled');
 
-/*
+
 var activateElementsOfForm = function (tags) {
-  tags.forEach(function (el) {
+  Array.from(tags).forEach(function (el) {
     el.removeAttribute('disabled');
   });
 };
-*/
-
-var activateElementsOfForm = function (tags) {
-  /*
-  for (var tag in tags) {
-    tag.removeAttribute('disabled');
-  }
-*/
-  for (var i = 0; i < tags.length; i++) {
-    tags[i].removeAttribute('disabled');
-  }
-};
-
 
 var disactivate = function (tags) {
   for (var i = 0; i < tags.length; i++) {
