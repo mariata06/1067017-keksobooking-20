@@ -55,15 +55,11 @@ var typeOfHousing = adForm.querySelector('.housing_type');
 var qtyRooms = adForm.querySelector('.room_number');
 var qtyGuests = adForm.querySelector('.capacity');
 var addressInput = adForm.querySelectorAll('.address');
-// var submitButton = adForm.querySelector('.ad-form__submit');
 
 typeOfHousing.addEventListener('change', function () {
   console.log(MIN_PRICE[typeOfHousing.value]);
   pricePerNight.min = MIN_PRICE[typeOfHousing.value];
-  // console.log(pricePerNight.min);
 });
-
-
 
 pricePerNight.max = MAX_PRICE;
 
@@ -92,33 +88,16 @@ pricePerNight.addEventListener('invalid', function () {
 qtyRooms.addEventListener('change', function () {
   qtyGuests.max = CAPACITY[qtyRooms.value];
   qtyGuests.value = qtyRooms.value;
-  //console.log(CAPACITY[qtyRooms.value]);
-  console.log(qtyGuests.max);
 });
 
 qtyGuests.addEventListener('change', function () {
-  if (qtyGuests.validity.rangeOverflow) {
+  if (qtyGuests.value > qtyGuests.max) {
     qtyGuests.setCustomValidity('Количество гостей должна быть не больше ' + qtyGuests.max);
   } else {
     qtyGuests.setCustomValidity('');
   }
-  console.log(qtyGuests.validity.rangeOverflow);
 });
 
-/*
-adForm.addEventListener('submit', function () {
-  adForm.submit();
-});
-*/
-/*
-selectQtyRooms.addEventListener('invalid', function () {
-  if (selectQtyRooms.value !== selectQtyGuests.value) {
-    selectQtyRooms.setCustomValidity('Введите подходящее число комнат или гостей')
-  } else if (selectQtyRooms.value == 100 && selectQtyGuests == 'не для гостей') {
-
-  }
-});
-*/
 mapPinMain.addEventListener('mousedown', leftMouseButtonClickHandler);
 
 var flagMapActivation = false;
@@ -139,18 +118,10 @@ function leftMouseButtonClickHandler(e) {
     var xCoordinate = mapPinMain.style.left;
     var yCoordinate = mapPinMain.style.top;
     addressInput[0].value = Number(xCoordinate.substr(0, xCoordinate.length-2)) + MUFFIN_WIDTH / 2 +', '+ (Number(yCoordinate.substr(0, yCoordinate.length-2)) + MUFFIN_HEIGHT);
-    //console.log(addressInput[0].value);
-    //console.log(mapPinMain);
   }
 }
-// console.log(fieldsetForms);
-/*
-var calculateCoordinates = function() {
-  return
-}
-*/
-mapFiltersForm.classList.add('ad-form--disabled');
 
+mapFiltersForm.classList.add('ad-form--disabled');
 
 var activateElementsOfForm = function (tags) {
   Array.from(tags).forEach(function (el) {
@@ -167,8 +138,6 @@ var disactivate = function (tags) {
 disactivate(fieldsetForms);
 disactivate(fieldsetFilters);
 disactivate(selectFilters);
-// adForm.classList.add('ad-form--disabled');
-// fieldsetForm.disabled = true;
 var getRandomElement = function (array) {
   return array[Math.floor(array.length * Math.random())];
 };
