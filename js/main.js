@@ -6,8 +6,6 @@ var LOC_X_MAX = 1000; // максимальный Х для "адреса пре
 var LOC_Y_MIN = 200; // минимальный Y для "адреса предложения"
 var LOC_Y_MAX = 650; // максимальный Y для "адреса предложения"
 var X_SHIFT = 100; // чтобы метки не попадали на края карты
-var MIN_PRICE = 1000;
-var MAX_PRICE = 10000;
 var MIN_QTY_ROOMS = 1;
 var MAX_QTY_ROOMS = 10;
 var MIN_QTY_GUEST = 1;
@@ -57,7 +55,6 @@ var qtyGuests = adForm.querySelector('.capacity');
 var addressInput = adForm.querySelector('.address');
 
 typeOfHousing.addEventListener('change', function () {
-  console.log(MIN_PRICE[typeOfHousing.value]);
   pricePerNight.min = MIN_PRICE[typeOfHousing.value];
 });
 
@@ -117,7 +114,7 @@ function leftMouseButtonClickHandler(e) {
 
     var xCoordinate = mapPinMain.style.left;
     var yCoordinate = mapPinMain.style.top;
-    addressInput.value = Number(xCoordinate.substr(0, xCoordinate.length-2)) + MUFFIN_WIDTH / 2 +', '+ (Number(yCoordinate.substr(0, yCoordinate.length-2)) + MUFFIN_HEIGHT);
+    addressInput.value = Number(xCoordinate.substr(0, xCoordinate.length - 2)) + MUFFIN_WIDTH / 2 + ', ' + (Number(yCoordinate.substr(0, yCoordinate.length - 2)) + MUFFIN_HEIGHT);
   }
 }
 
