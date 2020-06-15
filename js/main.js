@@ -82,18 +82,36 @@ pricePerNight.addEventListener('invalid', function () {
   }
 });
 
+/*
 qtyRooms.addEventListener('change', function () {
-  qtyGuests.max = CAPACITY[qtyRooms.value];
-  qtyGuests.value = qtyRooms.value;
+  qtyGuests.max = CAPACITY[qtyRooms.value];//как будто не меняет
+  checkGuests();
+  //qtyGuests.value = qtyRooms.value;
+  //console.log('guest_value=', qtyGuests.value, '> max_guest=', qtyGuests.max, qtyGuests.value > qtyGuests.max);
 });
+*/
 
-qtyGuests.addEventListener('change', function () {
+var checkGuests = function () {
+  qtyGuests.max = CAPACITY[qtyRooms.value];
+  console.log('guest_value=', qtyGuests.value, '> max_guest=', qtyGuests.max, qtyGuests.value > qtyGuests.max);
   if (qtyGuests.value > qtyGuests.max) {
     qtyGuests.setCustomValidity('Количество гостей должна быть не больше ' + qtyGuests.max);
   } else {
     qtyGuests.setCustomValidity('');
   }
+};
+
+qtyRooms.addEventListener('change', function () {
+  checkGuests();
 });
+
+qtyGuests.addEventListener('change', function () {
+  checkGuests();
+});
+
+qtyGuests.max = CAPACITY[qtyRooms.value];
+qtyGuests.value = qtyRooms.value;
+
 
 mapPinMain.addEventListener('mousedown', leftMouseButtonClickHandler);
 
