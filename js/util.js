@@ -66,5 +66,5 @@
     MAX_PRICE: MAX_PRICE,
     getRandomElement: getRandomElement,
     getRandomInteger: getRandomInteger
-  }
+  };
 })();

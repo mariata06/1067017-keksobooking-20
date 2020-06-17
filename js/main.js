@@ -54,5 +54,5 @@
 
   window.main = {
     adForm: adForm
-  }
+  };
 })();

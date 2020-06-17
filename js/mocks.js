@@ -75,5 +75,5 @@
 
   window.validation = {
     activateMap: activateMap
-  }
+  };
 })();
