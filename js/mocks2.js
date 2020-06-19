@@ -85,7 +85,7 @@
       }
       similarListElement.appendChild(fragment);
       map.classList.remove('map--faded');
-      //map.querySelector('.setup-similar').classList.remove('hidden');
+      // map.querySelector('.setup-similar').classList.remove('hidden');
     }, function () {});
   };
 
