@@ -17,7 +17,8 @@
   function leftMouseButtonClickHandler(e) {
     if (typeof e === 'object' && e.button === 0) {
       if (!flagMapActivation) {
-        window.validation.activateMap();
+        window.offers.activateMap();
+
         flagMapActivation = true;
       }
 
