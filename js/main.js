@@ -57,6 +57,6 @@
   window.main = {
     adForm: adForm,
     addressInput: addressInput,
-    //leftMouseButtonClickHandler: leftMouseButtonClickHandler
+    // leftMouseButtonClickHandler: leftMouseButtonClickHandler
   };
 })();

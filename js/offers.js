@@ -12,7 +12,6 @@
   var similarAdvertTemplate = document.querySelector('#pin');
   var newAdvert = similarAdvertTemplate.content.querySelector('.map__pin');
   var map = document.querySelector('.map');
-  
   var card = document.querySelector('#card');
   var newOffer = card.content.querySelector('.map__card');
   var offer = document.querySelector('.map__offers');
@@ -26,8 +25,6 @@
 
     return advertElement;
   };
-
-
 
   var renderOffer = function (variantOffer) {
     var offerElement = newOffer.cloneNode(true);

@@ -14,7 +14,7 @@
     'image/jpeg',
     'image/gif',
     'image/png'
-  ]
+  ];
 
   // опеределяет мин цену за ночь по типу жилья
   typeOfHousing.addEventListener('change', function () {
@@ -75,7 +75,7 @@
     if (checkoutTime.value > checkoutTime.max) {
       checkoutTime.setCustomValidity('Время выезда должно быть не позже ' + checkoutTime.max);
     } else if (checkinTime.value > checkinTime.max) {
-      checkinTime.setCustomValidity('Время заезда должно быть не позже ' + checkinTime.max)
+      checkinTime.setCustomValidity('Время заезда должно быть не позже ' + checkinTime.max);
     } else {
       checkoutTime.setCustomValidity('');
       checkinTime.setCustomValidity('');
@@ -90,13 +90,13 @@
     checkTimes();
   });
 
-  var validateFileType = function(file) {
-    for(var i = 0; i < fileTypes.length; i++) {
-      if(file.type === fileTypes[i]) {
+  var validateFileType = function (file) {
+    for (var i = 0; i < fileTypes.length; i++) {
+      if (file.type === fileTypes[i]) {
         return true;
       }
     }
 
     return false;
-  }
+  };
 })();
