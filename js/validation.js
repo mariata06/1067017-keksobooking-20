@@ -6,6 +6,16 @@
   var typeOfHousing = window.main.adForm.querySelector('.housing_type');
   var qtyRooms = window.main.adForm.querySelector('.room_number');
   var qtyGuests = window.main.adForm.querySelector('.capacity');
+  var checkinTime = window.main.adForm.querySelector('.timein');
+  var checkoutTime = window.main.adForm.querySelector('.timeout');
+  // var avatarPhoto = window.main.adForm.querySelector('.ad-form-header__input');
+  // var housingPhoto = window.main.adForm.querySelector('.ad-form__input');
+  var fileTypes = [
+    'image/jpeg',
+    'image/gif',
+    'image/png'
+  ]
+
   // опеределяет мин цену за ночь по типу жилья
   typeOfHousing.addEventListener('change', function () {
     pricePerNight.min = window.util.MIN_PRICE[typeOfHousing.value];
@@ -57,4 +67,36 @@
 
   qtyGuests.max = window.util.CAPACITY[qtyRooms.value];
   qtyGuests.value = qtyRooms.value;
+
+  // валидация полей время заезда - время выезда
+  var checkTimes = function () {
+    checkoutTime.max = window.util.TIMES[checkinTime.value];
+    checkinTime.max = window.util.TIMES[checkoutTime.value];
+    if (checkoutTime.value > checkoutTime.max) {
+      checkoutTime.setCustomValidity('Время выезда должно быть не позже ' + checkoutTime.max);
+    } else if (checkinTime.value > checkinTime.max) {
+      checkinTime.setCustomValidity('Время заезда должно быть не позже ' + checkinTime.max)
+    } else {
+      checkoutTime.setCustomValidity('');
+      checkinTime.setCustomValidity('');
+    }
+  };
+
+  checkinTime.addEventListener('change', function () {
+    checkTimes();
+  });
+
+  checkoutTime.addEventListener('change', function () {
+    checkTimes();
+  });
+
+  var validateFileType = function(file) {
+    for(var i = 0; i < fileTypes.length; i++) {
+      if(file.type === fileTypes[i]) {
+        return true;
+      }
+    }
+
+    return false;
+  }
 })();

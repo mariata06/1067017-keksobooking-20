@@ -12,7 +12,7 @@
   var similarAdvertTemplate = document.querySelector('#pin');
   var newAdvert = similarAdvertTemplate.content.querySelector('.map__pin');
   var map = document.querySelector('.map');
-
+  
   var card = document.querySelector('#card');
   var newOffer = card.content.querySelector('.map__card');
   var offer = document.querySelector('.map__offers');
@@ -39,7 +39,7 @@
     if (variantOffer.offer.rooms == 0 && variantOffer.offer.guests == 0) {
       offerElement.querySelector('.popup__text--capacity').classList.add('hidden');
     } else {
-      offerElement.querySelector('.popup__text--capacity').textContent = variantOffer.offer.rooms + ' комнаты для ' + variantOffer.offer.guests +' гостей';
+      offerElement.querySelector('.popup__text--capacity').textContent = variantOffer.offer.rooms + ' комнаты для ' + variantOffer.offer.guests + ' гостей';
     }
 
     if (variantOffer.offer.checkin == 0 && variantOffer.offer.checkout == 0) {
@@ -52,7 +52,7 @@
       offerElement.querySelector('.popup__features').classList.add('hidden');
     } else {
       for (var i = 0; i < variantOffer.offer.features.length; i++) {
-        offerElement.querySelector('.popup__features').textContent += variantOffer.offer.features[i] +' ';
+        offerElement.querySelector('.popup__features').textContent += variantOffer.offer.features[i] + ' ';
       }
     }
 
@@ -80,32 +80,31 @@
       var fragment = document.createDocumentFragment();
 
       for (var i = 0; i < offers.length; i++) {
-        var newAdvert = renderAdvert(offers[i])
-        fragment.appendChild(newAdvert);
-/*
-        var currentPin = fragment.children[fragment.children.length-1]
-        currentPin.addEventListener('click', function () {
-          console.log(currentPin.children[0].alt);
-          activateOffer(currentPin.children[0].alt, offers);
-        });
-*/
+        fragment.appendChild(renderAdvert(offers[i]));
       }
       similarListElement.appendChild(fragment);
 
-      offer.appendChild(renderOffer(offers[0]));
+      similarListElement.addEventListener('click', function (event) {
+        activateOffer(event.target.alt, offers);
+      });
+
       map.classList.remove('map--faded');
     }, function () {});
   };
-/*
+
+
   var activateOffer = function (alt, offers) {
-      for (var i = 0; i < offers.length; i++) {
-        if (alt == offers[i].offer.title) {
-          offer.appendChild(renderOffer(offers[i]));
-          //offer.children[offer.children.length-1].style.zIndex += 10;
-        }
+    for (var i = 0; i < offer.children.length; i++) {
+      offer.removeChild(offer.children[i]);
+    }
+
+    for (var i = 0; i < offers.length; i++) {
+      if (alt == offers[i].offer.title) {
+        offer.appendChild(renderOffer(offers[i]));
       }
+    }
   }
-*/
+
 
   window.offers = {
     activateMap: activateMap
