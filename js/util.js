@@ -31,11 +31,6 @@
     '100': 0
   };
   var MAX_PRICE = 1000000;
-  var TIMES = {
-    '12:00': '12:00',
-    '13:00': '13:00',
-    '14:00': '14:00'
-  };
 
   // универсальная функция определяет случайный элемент
   var getRandomElement = function (array) {
@@ -70,7 +65,6 @@
     CAPACITY: CAPACITY,
     MAX_PRICE: MAX_PRICE,
     getRandomElement: getRandomElement,
-    getRandomInteger: getRandomInteger,
-    TIMES: TIMES
+    getRandomInteger: getRandomInteger
   };
 })();

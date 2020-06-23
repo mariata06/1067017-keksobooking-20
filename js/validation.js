@@ -8,8 +8,8 @@
   var qtyGuests = window.main.adForm.querySelector('.capacity');
   var checkinTime = window.main.adForm.querySelector('.timein');
   var checkoutTime = window.main.adForm.querySelector('.timeout');
-  // var avatarPhoto = window.main.adForm.querySelector('.ad-form-header__input');
-  // var housingPhoto = window.main.adForm.querySelector('.ad-form__input');
+  var avatarPhoto = window.main.adForm.querySelector('.ad-form-header__input');
+  var housingPhoto = window.main.adForm.querySelector('.ad-form__input');
   var fileTypes = [
     'image/jpeg',
     'image/gif',
@@ -68,26 +68,13 @@
   qtyGuests.max = window.util.CAPACITY[qtyRooms.value];
   qtyGuests.value = qtyRooms.value;
 
-  // валидация полей время заезда - время выезда
-  var checkTimes = function () {
-    checkoutTime.max = window.util.TIMES[checkinTime.value];
-    checkinTime.max = window.util.TIMES[checkoutTime.value];
-    if (checkoutTime.value > checkoutTime.max) {
-      checkoutTime.setCustomValidity('Время выезда должно быть не позже ' + checkoutTime.max);
-    } else if (checkinTime.value > checkinTime.max) {
-      checkinTime.setCustomValidity('Время заезда должно быть не позже ' + checkinTime.max);
-    } else {
-      checkoutTime.setCustomValidity('');
-      checkinTime.setCustomValidity('');
-    }
-  };
-
+  // синхронизация полей время въезда - время выезда
   checkinTime.addEventListener('change', function () {
-    checkTimes();
+    checkoutTime.value = checkinTime.value;
   });
 
   checkoutTime.addEventListener('change', function () {
-    checkTimes();
+    checkinTime.value = checkoutTime.value;
   });
 
   var validateFileType = function (file) {
@@ -96,7 +83,40 @@
         return true;
       }
     }
-
     return false;
   };
+
+  avatarPhoto.addEventListener('change', function () {
+    var selectedFile = avatarPhoto.files[0];
+    if (!validateFileType(selectedFile)) {
+      alert('Должна быть загружена картинка');
+      console.log(selectedFile);
+    } else {
+      console.log('загрузка аватара');
+    }
+  });
+
+  housingPhoto.addEventListener('change', function () {
+    var selectedFile = housingPhoto.files[0];
+    if (!validateFileType(selectedFile)) {
+      alert('Должна быть загружена картинка');
+      console.log(selectedFile);
+    } else {
+      console.log('загрузка фоток домика');
+    }
+  });
+/*
+  housingPhoto.addEventListener('change', function () {
+    if (!housingPhoto.files.some(function(file) {
+      for (var i = 0; i < fileTypes.length; i++) {
+        return file.type === fileTypes[i]
+      }
+    })) {
+      alert('Должна быть загружена картинка');
+      console.log(selectedFile);
+    } else {
+      console.log('загрузка фоток домика');
+    }
+  });
+*/
 })();

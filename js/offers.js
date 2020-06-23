@@ -14,7 +14,8 @@
   var map = document.querySelector('.map');
   var card = document.querySelector('#card');
   var newOffer = card.content.querySelector('.map__card');
-  var offer = document.querySelector('.map__offers');
+  var pinBlock = document.querySelector('.map__offers');
+
 
   var renderAdvert = function (variantStorage) {
     var advertElement = newAdvert.cloneNode(true);
@@ -33,75 +34,101 @@
     offerElement.querySelector('.popup__text--price').textContent = variantOffer.offer.price + ' р/ночь';
     offerElement.querySelector('.popup__type').textContent = variantOffer.offer.type;
 
-    if (variantOffer.offer.rooms == 0 && variantOffer.offer.guests == 0) {
+    if (variantOffer.offer.rooms === 0 && variantOffer.offer.guests === 0) {
       offerElement.querySelector('.popup__text--capacity').classList.add('hidden');
     } else {
       offerElement.querySelector('.popup__text--capacity').textContent = variantOffer.offer.rooms + ' комнаты для ' + variantOffer.offer.guests + ' гостей';
     }
 
-    if (variantOffer.offer.checkin == 0 && variantOffer.offer.checkout == 0) {
+    if (variantOffer.offer.checkin === 0 && variantOffer.offer.checkout === 0) {
       offerElement.querySelector('.popup__text--time').classList.add('hidden');
     } else {
       offerElement.querySelector('.popup__text--time').textContent = 'заезд после ' + variantOffer.offer.checkin + ' выезд после ' + variantOffer.offer.checkout;
     }
 
-    if (variantOffer.offer.features.length == 0) {
+    if (variantOffer.offer.features.length === 0) {
       offerElement.querySelector('.popup__features').classList.add('hidden');
     } else {
-      for (var i = 0; i < variantOffer.offer.features.length; i++) {
-        offerElement.querySelector('.popup__features').textContent += variantOffer.offer.features[i] + ' ';
-      }
+      offerElement.querySelector('.popup__features').textContent = variantOffer.offer.features.join(' ');
     }
 
     offerElement.querySelector('.popup__description').textContent = variantOffer.offer.description;
 
     var photoBlock = offerElement.querySelector('.popup__photos');
-    if (variantOffer.offer.photos.length == 0) {
+    if (variantOffer.offer.photos.length === 0) {
       photoBlock.classList.add('hidden');
     } else {
       offerElement.querySelector('.popup__photo').src = variantOffer.offer.photos[0];
-      for (var i = 1; i < variantOffer.offer.photos.length; i++) {
+
+      Array.from(variantOffer.offer.photos).forEach(function (el) {
         var photo = offerElement.querySelector('.popup__photo').cloneNode(true);
-        photo.src = variantOffer.offer.photos[i]
+        photo.src = el;
         photoBlock.appendChild(photo);
-      }
+      });
     }
 
     offerElement.querySelector('.popup__avatar').src = variantOffer.author.avatar;
     return offerElement;
   }
 
-
   var activateMap = function () {
     window.backend.load(function (offers) {
       var fragment = document.createDocumentFragment();
 
-      for (var i = 0; i < offers.length; i++) {
-        fragment.appendChild(renderAdvert(offers[i]));
-      }
+      Array.from(offers).forEach(function (el) {
+        fragment.appendChild(renderAdvert(el));
+      })
       similarListElement.appendChild(fragment);
 
+      // делегирование
       similarListElement.addEventListener('click', function (event) {
+        console.log(event.target.alt);
         activateOffer(event.target.alt, offers);
+      });
+
+      similarListElement.addEventListener('keydown', function (event) {
+        // почему event.target.alt undefined ?
+        console.log(event.target.alt);
+        if (event.key === 'Enter') {
+          activateOffer(event.target.alt, offers);
+        }
+
+        if (event.key === 'Escape'){
+          clearOffer();
+        }
+
       });
 
       map.classList.remove('map--faded');
     }, function () {});
   };
 
-
-  var activateOffer = function (alt, offers) {
-    for (var i = 0; i < offer.children.length; i++) {
-      offer.removeChild(offer.children[i]);
-    }
-
-    for (var i = 0; i < offers.length; i++) {
-      if (alt == offers[i].offer.title) {
-        offer.appendChild(renderOffer(offers[i]));
-      }
-    }
+  var clearOffer = function () {
+    Array.from(pinBlock.children).forEach(function (el) {
+      pinBlock.removeChild(el);
+    });
   }
 
+  var activateOffer = function (alt, offers) {
+    clearOffer();
+
+    Array.from(offers).forEach(function (el) {
+      if (alt === el.offer.title) {
+        pinBlock.appendChild(renderOffer(el));
+
+        var popup = pinBlock.querySelector('.popup');
+        var popupClose = popup.querySelector('.popup__close');
+
+        var closePopup = function () {
+          popup.classList.add('hidden');
+        };
+
+        popupClose.addEventListener('click', function () {
+          closePopup();
+        });
+      }
+    });
+  };
 
   window.offers = {
     activateMap: activateMap
