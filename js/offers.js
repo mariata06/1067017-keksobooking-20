@@ -69,7 +69,7 @@
 
     offerElement.querySelector('.popup__avatar').src = variantOffer.author.avatar;
     return offerElement;
-  }
+  };
 
   var activateMap = function () {
     window.backend.load(function (offers) {
@@ -77,23 +77,23 @@
 
       Array.from(offers).forEach(function (el) {
         fragment.appendChild(renderAdvert(el));
-      })
+      });
       similarListElement.appendChild(fragment);
 
       // делегирование
       similarListElement.addEventListener('click', function (event) {
-        console.log(event.target.alt);
+        // console.log(event.target.alt);
         activateOffer(event.target.alt, offers);
       });
 
       similarListElement.addEventListener('keydown', function (event) {
         // почему event.target.alt undefined ?
-        console.log(event.target.alt);
+        // console.log(event.target.alt);
         if (event.key === 'Enter') {
           activateOffer(event.target.alt, offers);
         }
 
-        if (event.key === 'Escape'){
+        if (event.key === 'Escape') {
           clearOffer();
         }
 
@@ -107,7 +107,7 @@
     Array.from(pinBlock.children).forEach(function (el) {
       pinBlock.removeChild(el);
     });
-  }
+  };
 
   var activateOffer = function (alt, offers) {
     clearOffer();
