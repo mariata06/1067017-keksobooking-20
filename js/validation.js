@@ -15,6 +15,8 @@
     'image/gif',
     'image/png'
   ];
+  var avatarPreview = window.main.adForm.querySelector('.ad-form-header__preview');
+  var housingPhotoPreview = window.main.adForm.querySelector('.ad-form__photo');
 
   // опеределяет мин цену за ночь по типу жилья
   typeOfHousing.addEventListener('change', function () {
@@ -78,45 +80,39 @@
   });
 
   var validateFileType = function (file) {
-    for (var i = 0; i < fileTypes.length; i++) {
-      if (file.type === fileTypes[i]) {
-        return true;
-      }
-    }
-    return false;
+    return fileTypes.some(function (type) {
+      return file.type === type;
+    })
   };
 
+  // валидация поля загрузки аватара
   avatarPhoto.addEventListener('change', function () {
     var selectedFile = avatarPhoto.files[0];
     if (!validateFileType(selectedFile)) {
-      alert('Должна быть загружена картинка');
-      console.log(selectedFile);
+      avatarPhoto.setCustomValidity('Должны быть файлы png, gif или jpg');
+      //console.log(selectedFile);
     } else {
-      console.log('загрузка аватара');
+      avatarPhoto.setCustomValidity('');
+      //console.log(selectedFile);
+      avatarPreview.children[0].src = 'img/' + selectedFile.name;
     }
   });
 
+  // валидация поля загрузки фото жилья
   housingPhoto.addEventListener('change', function () {
     var selectedFile = housingPhoto.files[0];
     if (!validateFileType(selectedFile)) {
-      alert('Должна быть загружена картинка');
-      console.log(selectedFile);
+      housingPhoto.setCustomValidity('Должны быть файлы png, gif или jpg');
     } else {
-      console.log('загрузка фоток домика');
-    }
-  });
-/*
-  housingPhoto.addEventListener('change', function () {
-    if (!housingPhoto.files.some(function(file) {
-      for (var i = 0; i < fileTypes.length; i++) {
-        return file.type === fileTypes[i]
+      housingPhoto.setCustomValidity('');
+      if (housingPhotoPreview.querySelector('.ad-form__photo--image').src=='') {
+        housingPhotoPreview.querySelector('.ad-form__photo--image').src = 'img/' + selectedFile.name;
+      } else {
+        var photo = housingPhotoPreview.querySelector('.ad-form__photo--image').cloneNode(true);
+        photo.src = 'img/' + selectedFile.name;
+        housingPhotoPreview.appendChild(photo);
       }
-    })) {
-      alert('Должна быть загружена картинка');
-      console.log(selectedFile);
-    } else {
-      console.log('загрузка фоток домика');
     }
   });
-*/
+
 })();
