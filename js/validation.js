@@ -82,7 +82,7 @@
   var validateFileType = function (file) {
     return fileTypes.some(function (type) {
       return file.type === type;
-    })
+    });
   };
 
   // валидация поля загрузки аватара
@@ -90,10 +90,10 @@
     var selectedFile = avatarPhoto.files[0];
     if (!validateFileType(selectedFile)) {
       avatarPhoto.setCustomValidity('Должны быть файлы png, gif или jpg');
-      //console.log(selectedFile);
+      // console.log(selectedFile);
     } else {
       avatarPhoto.setCustomValidity('');
-      //console.log(selectedFile);
+      // console.log(selectedFile);
       avatarPreview.children[0].src = 'img/' + selectedFile.name;
     }
   });
@@ -105,7 +105,7 @@
       housingPhoto.setCustomValidity('Должны быть файлы png, gif или jpg');
     } else {
       housingPhoto.setCustomValidity('');
-      if (housingPhotoPreview.querySelector('.ad-form__photo--image').src=='') {
+      if (housingPhotoPreview.querySelector('.ad-form__photo--image').src === '') {
         housingPhotoPreview.querySelector('.ad-form__photo--image').src = 'img/' + selectedFile.name;
       } else {
         var photo = housingPhotoPreview.querySelector('.ad-form__photo--image').cloneNode(true);
