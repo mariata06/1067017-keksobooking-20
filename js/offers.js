@@ -1,13 +1,6 @@
 'use strict';
 
 (function () {
-  // var advertTitles = ['Bungalos', 'Prince palace', 'Down town Appartments']; // строка, заголовок предложения
-  // var housingTypes = ['palace', 'flat', 'house', 'bungalo']; // строка с одним из четырёх фиксированных значений: palace, flat, house или bungalo
-  // var checkinTimes = ['12:00', '13:00', '14:00']; // строка с одним из трёх фиксированных значений: 12:00, 13:00 или 14:00,
-  // var checkoutTimes = ['12:00', '13:00', '14:00']; // трока с одним из трёх фиксированных значений: 12:00, 13:00 или 14:00
-  // var housingFeatures = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner']; // массив строк случайной длины из ниже предложенных: "wifi", "dishwasher", "parking", "washer", "elevator", "conditioner",
-  // var advertDescriptions = ['descrText1', 'descrText2', 'descrText3']; // строка с описанием,
-  // var advertPictures = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
   var similarListElement = document.querySelector('.map__pins');
   var similarAdvertTemplate = document.querySelector('#pin');
   var newAdvert = similarAdvertTemplate.content.querySelector('.map__pin');
@@ -16,11 +9,10 @@
   var newOffer = card.content.querySelector('.map__card');
   var pinBlock = document.querySelector('.map__offers');
 
-
   var renderAdvert = function (variantStorage) {
     var advertElement = newAdvert.cloneNode(true);
-    advertElement.children[0].src = variantStorage.author.avatar;
-    advertElement.children[0].alt = variantStorage.offer.title;
+    advertElement.querySelector('.map__pin--image').src = variantStorage.author.avatar;
+    advertElement.querySelector('.map__pin--image').alt = variantStorage.offer.title;
     advertElement.style.left = variantStorage.location.x - window.util.PIN_X + 'px';
     advertElement.style.top = variantStorage.location.y - window.util.PIN_Y + 'px';
 
@@ -60,7 +52,7 @@
     } else {
       offerElement.querySelector('.popup__photo').src = variantOffer.offer.photos[0];
 
-      Array.from(variantOffer.offer.photos).forEach(function (el) {
+      variantOffer.offer.photos.forEach(function (el) {
         var photo = offerElement.querySelector('.popup__photo').cloneNode(true);
         photo.src = el;
         photoBlock.appendChild(photo);
@@ -75,7 +67,7 @@
     window.backend.load(function (offers) {
       var fragment = document.createDocumentFragment();
 
-      Array.from(offers).forEach(function (el) {
+      offers.forEach(function (el) {
         fragment.appendChild(renderAdvert(el));
       });
       similarListElement.appendChild(fragment);
