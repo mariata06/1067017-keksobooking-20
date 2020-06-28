@@ -17,7 +17,7 @@
     'image/svg'
   ];
   var avatarPreview = window.main.adForm.querySelector('.ad-form-header__preview');
-  //var housingPhotoPreview = window.main.adForm.querySelector('.ad-form__photo');
+  // var housingPhotoPreview = window.main.adForm.querySelector('.ad-form__photo');
   var housingPhotoContainer = window.main.adForm.querySelector('.ad-form__photo-container');
 
   var isEmptyAdPhoto = true;
@@ -98,7 +98,7 @@
     } else {
       avatarPhoto.setCustomValidity('');
       // console.log(selectedFile);
-      //avatarPreview.children[0].src = 'img/' + selectedFile.name;
+      // avatarPreview.children[0].src = 'img/' + selectedFile.name;
       var currentAvatar = avatarPreview.querySelector('.avatarImg');
       avatarPreview.removeChild(currentAvatar);
       handleFiles(selectedFile, avatarPreview, true);
@@ -121,20 +121,18 @@
               housingPhotoPreview.appendChild(photo);
             }
       */
-
+      var divAdPhoto;
       if (isEmptyAdPhoto) {
-        var divAdPhoto = housingPhotoContainer.querySelector('.ad-form__photo');
+        divAdPhoto = housingPhotoContainer.querySelector('.ad-form__photo');
         handleFiles(selectedFile, divAdPhoto, false);
         isEmptyAdPhoto = false;
       } else {
-        var divAdPhoto = document.createElement('div');
+        divAdPhoto = document.createElement('div');
         divAdPhoto.classList.add('ad-form__photo');
         housingPhotoContainer.appendChild(divAdPhoto);
-        var adFormPhotos = housingPhotoContainer.querySelectorAll('.ad-form__photo')
+        var adFormPhotos = housingPhotoContainer.querySelectorAll('.ad-form__photo');
         handleFiles(selectedFile, adFormPhotos[adFormPhotos.length - 1], false);
       }
-
-
     }
   });
 
@@ -157,7 +155,6 @@
       };
     })(img);
     reader.readAsDataURL(file);
-
   }
 
   /*
