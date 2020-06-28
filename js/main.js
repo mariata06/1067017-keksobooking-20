@@ -17,7 +17,8 @@
   function leftMouseButtonClickHandler(e) {
     if (typeof e === 'object' && e.button === 0) {
       if (!flagMapActivation) {
-        window.validation.activateMap();
+        window.offers.activateMap();
+
         flagMapActivation = true;
       }
 
@@ -30,6 +31,7 @@
       var xCoordinate = mapPinMain.style.left;
       var yCoordinate = mapPinMain.style.top;
       addressInput.value = Number(xCoordinate.substr(0, xCoordinate.length - 2)) + window.util.MUFFIN_WIDTH / 2 + ', ' + (Number(yCoordinate.substr(0, yCoordinate.length - 2)) + window.util.MUFFIN_HEIGHT);
+      addressInput.setAttribute('readonly', true);
     }
   }
 
@@ -53,6 +55,8 @@
   disactivate(selectFilters);
 
   window.main = {
-    adForm: adForm
+    adForm: adForm,
+    addressInput: addressInput,
+    // leftMouseButtonClickHandler: leftMouseButtonClickHandler
   };
 })();
