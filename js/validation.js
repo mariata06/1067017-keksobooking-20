@@ -143,18 +143,25 @@
     } else {
       img.classList.add('housingImg');
     }
-    img.file = file;
+    //img.file = file;
     img.height = divAdFormPhoto.offsetHeight;
     img.width = divAdFormPhoto.offsetWidth;
     divAdFormPhoto.appendChild(img);
 
     var reader = new FileReader();
+    reader.onload = function (e) {
+        img.src = e.target.result;
+      };
+    /*
     reader.onload = (function (aImg) {
       return function (e) {
         aImg.src = e.target.result;
       };
     })(img);
+    */
+    //alert('test');
     reader.readAsDataURL(file);
+
   }
 
   /*
