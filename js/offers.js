@@ -8,6 +8,9 @@
   var card = document.querySelector('#card');
   var newOffer = card.content.querySelector('.map__card');
   var pinBlock = document.querySelector('.map__offers');
+  var data = [];
+  var housingTypeFilter = window.main.mapFiltersForm.querySelector('.housing-type');
+
 
   var renderAdvert = function (variantStorage) {
     var advertElement = newAdvert.cloneNode(true);
@@ -67,9 +70,16 @@
     window.backend.load(function (offers) {
       var fragment = document.createDocumentFragment();
 
+
       offers.forEach(function (el) {
-        fragment.appendChild(renderAdvert(el));
+        data.push(el);
       });
+
+      // Вывод на карту не более 5 меток при активации карты
+      var PIN_NUMBER_LIMIT = 5;
+      for (var i = 0; i < PIN_NUMBER_LIMIT; i++) {
+        fragment.appendChild(renderAdvert(offers[i]));
+      }
       similarListElement.appendChild(fragment);
 
       // делегирование
@@ -122,7 +132,58 @@
     });
   };
 
+  // активация фильтра по типу жилья
+  housingTypeFilter.addEventListener('change', function () {
+    //console.log(data[1]);
+    var filteredOffers = [];
+
+    var pinOffers = document.querySelectorAll('.map__pin--offers');
+    pinOffers.forEach(function (el) {
+      el.parentNode.removeChild(el)
+      //pinBlock.removeChild(el);
+    });
+
+    data.forEach(function (el) {
+      if (el.offer.type == housingTypeFilter.value) {
+        filteredOffers.push(el)
+      }
+    });
+
+    var fragment = document.createDocumentFragment();
+    var PIN_NUMBER_LIMIT = 5;
+    for (var i = 0; i < filteredOffers.length; i++) {
+      if (i == PIN_NUMBER_LIMIT - 1) {
+        break
+      }
+      fragment.appendChild(renderAdvert(filteredOffers[i]));
+    }
+    similarListElement.appendChild(fragment);
+
+    // делегирование
+    similarListElement.addEventListener('click', function (event) {
+      // console.log(event.target.alt);
+      activateOffer(event.target.alt, filteredOffers);
+    });
+
+    similarListElement.addEventListener('keydown', function (event) {
+      // почему event.target.alt undefined ?
+      // console.log(event.target.alt);
+      if (event.key === 'Enter') {
+        activateOffer(event.target.alt, filteredOffers);
+      }
+
+      if (event.key === 'Escape') {
+        clearOffer();
+      }
+
+    });
+  })
+
   window.offers = {
-    activateMap: activateMap
+    data: data,
+    activateMap: activateMap,
+    clearOffer: clearOffer,
+    renderAdvert: renderAdvert,
+    activateOffer: activateOffer
   };
 })();

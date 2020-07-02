@@ -5,9 +5,10 @@
   var adForm = document.querySelector('.ad-form');
   var fieldsetForms = adForm.querySelector('.ad-form__element');
   var fieldsetFilters = mapFiltersForm.querySelector('.map__features');
-  var selectFilters = mapFiltersForm.querySelector('.map__filter');
+  var selectFilters = mapFiltersForm.querySelectorAll('.map__filter');
   var mapPinMain = document.querySelector('.map__pin--main');
   var addressInput = adForm.querySelector('.address');
+
 
   // активация карты
   mapPinMain.addEventListener('mousedown', leftMouseButtonClickHandler);
@@ -54,9 +55,18 @@
   disactivate(fieldsetFilters);
   disactivate(selectFilters);
 
+  //сокрытие открытой карточки объявления при клике на любой из фильтров
+  selectFilters.forEach(function (el) {
+    el.addEventListener('change', function () {
+      window.offers.clearOffer();
+    })
+  })
+
   window.main = {
     adForm: adForm,
     addressInput: addressInput,
+    mapFiltersForm: mapFiltersForm
     // leftMouseButtonClickHandler: leftMouseButtonClickHandler
   };
+
 })();
