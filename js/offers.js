@@ -137,7 +137,7 @@
     //console.log(data[1]);
     var filteredOffers = [];
 
-    var pinOffers = document.querySelectorAll('.map__pin--offers');
+    var pinOffers = document.querySelectorAll('.map__pin--offer');
     pinOffers.forEach(function (el) {
       el.parentNode.removeChild(el)
       //pinBlock.removeChild(el);
