@@ -85,14 +85,17 @@
       // делегирование
       similarListElement.addEventListener('click', function (event) {
         // console.log(event.target.alt);
-        activateOffer(event.target.alt, offers);
+        //console.log(event.toElement.alt);
+        activateOffer(event.toElement.alt, offers);
+
       });
 
       similarListElement.addEventListener('keydown', function (event) {
         // почему event.target.alt undefined ?
-        // console.log(event.target.alt);
+         //console.log(event.target.firstChild.alt);
         if (event.key === 'Enter') {
-          activateOffer(event.target.alt, offers);
+          console.log(event.target.children[0].alt);
+          activateOffer(event.target.children[0].alt, offers);
         }
 
         if (event.key === 'Escape') {
@@ -162,14 +165,14 @@
     // делегирование
     similarListElement.addEventListener('click', function (event) {
       // console.log(event.target.alt);
-      activateOffer(event.target.alt, filteredOffers);
+      activateOffer(event.toElement.alt, filteredOffers);
     });
 
     similarListElement.addEventListener('keydown', function (event) {
       // почему event.target.alt undefined ?
       // console.log(event.target.alt);
       if (event.key === 'Enter') {
-        activateOffer(event.target.alt, filteredOffers);
+        activateOffer(event.target.children[0].alt, filteredOffers);
       }
 
       if (event.key === 'Escape') {
