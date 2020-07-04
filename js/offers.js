@@ -10,7 +10,10 @@
   var pinBlock = document.querySelector('.map__offers');
   var data = [];
   var housingTypeFilter = window.main.mapFiltersForm.querySelector('.housing-type');
-
+  var successMessageTemplate = document.querySelector('#success');
+  var newSuccess = successMessageTemplate.content.querySelector('.success');
+  var errorMessageTemplate = document.querySelector('#error');
+  var newError = errorMessageTemplate.content.querySelector('.error');
 
   var renderAdvert = function (variantStorage) {
     var advertElement = newAdvert.cloneNode(true);
@@ -21,6 +24,16 @@
 
     return advertElement;
   };
+
+  var renderSuccess = function () {
+    var successElement = newSuccess.cloneNode(true);
+    return successElement;
+  }
+
+  var renderError = function () {
+    var errorElement = newError.cloneNode(true);
+    return errorElement;
+  }
 
   var renderOffer = function (variantOffer) {
     var offerElement = newOffer.cloneNode(true);
@@ -83,19 +96,22 @@
       similarListElement.appendChild(fragment);
 
       // делегирование
+
       similarListElement.addEventListener('click', function (event) {
+        //event.preventDefault();
         // console.log(event.target.alt);
         //console.log(event.toElement.alt);
-        activateOffer(event.toElement.alt, offers);
-
+        window.card.activateOffer(event.target.alt, offers);
       });
 
       similarListElement.addEventListener('keydown', function (event) {
         // почему event.target.alt undefined ?
          //console.log(event.target.firstChild.alt);
+         //event.preventDefault();
         if (event.key === 'Enter') {
-          console.log(event.target.children[0].alt);
-          activateOffer(event.target.children[0].alt, offers);
+          event.preventDefault();
+          //console.log(event.target.querySelector('.map__pin--image').alt);
+          window.card.activateOffer(event.target.querySelector('.map__pin--image').alt, offers);
         }
 
         if (event.key === 'Escape') {
@@ -111,27 +127,6 @@
   var clearOffer = function () {
     Array.from(pinBlock.children).forEach(function (el) {
       pinBlock.removeChild(el);
-    });
-  };
-
-  var activateOffer = function (alt, offers) {
-    clearOffer();
-
-    Array.from(offers).forEach(function (el) {
-      if (alt === el.offer.title) {
-        pinBlock.appendChild(renderOffer(el));
-
-        var popup = pinBlock.querySelector('.popup');
-        var popupClose = popup.querySelector('.popup__close');
-
-        var closePopup = function () {
-          popup.classList.add('hidden');
-        };
-
-        popupClose.addEventListener('click', function () {
-          closePopup();
-        });
-      }
     });
   };
 
@@ -165,14 +160,14 @@
     // делегирование
     similarListElement.addEventListener('click', function (event) {
       // console.log(event.target.alt);
-      activateOffer(event.toElement.alt, filteredOffers);
+      window.card.activateOffer(event.target.alt, filteredOffers);
     });
 
     similarListElement.addEventListener('keydown', function (event) {
       // почему event.target.alt undefined ?
       // console.log(event.target.alt);
       if (event.key === 'Enter') {
-        activateOffer(event.target.children[0].alt, filteredOffers);
+        window.card.activateOffer(event.target.children[0].alt, filteredOffers);
       }
 
       if (event.key === 'Escape') {
@@ -187,6 +182,9 @@
     activateMap: activateMap,
     clearOffer: clearOffer,
     renderAdvert: renderAdvert,
-    activateOffer: activateOffer
+    pinBlock: pinBlock,
+    renderOffer: renderOffer,
+    renderSuccess: renderSuccess,
+    renderError: renderError
   };
 })();

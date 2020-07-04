@@ -8,7 +8,10 @@
   var selectFilters = mapFiltersForm.querySelectorAll('.map__filter');
   var mapPinMain = document.querySelector('.map__pin--main');
   var addressInput = adForm.querySelector('.address');
-
+  //var buttonSubmit = document.querySelector('.ad-form__submit');
+  var successBlock = document.querySelector('.success__block');
+  var errorBlock = document.querySelector('.error__block');
+  var resetButton = adForm.querySelector('.ad-form__reset');
 
   // активация карты
   mapPinMain.addEventListener('mousedown', leftMouseButtonClickHandler);
@@ -61,6 +64,56 @@
       window.offers.clearOffer();
     })
   })
+
+  var doIfSuccess = function () {
+    var fragment = document.createDocumentFragment();
+    fragment.appendChild(window.offers.renderSuccess());
+    successBlock.appendChild(fragment);
+    successBlock.addEventListener('click', function (event) {
+      var currentSuccess = successBlock.querySelector('.success');
+      successBlock.removeChild(currentSuccess);
+    });
+
+    successBlock.addEventListener('keydown', function (event) {
+      evt.preventDefault();
+      if (event.key === 'Escape') {
+
+        var currentSuccess = successBlock.querySelector('.success');
+        successBlock.removeChild(currentSuccess);
+      }
+    });
+  }
+
+  var doIfError = function () {
+    var fragment = document.createDocumentFragment();
+    fragment.appendChild(window.offers.renderError());
+    errorBlock.appendChild(fragment);
+
+    var errorButton = errorBlock.querySelector('.error__button');
+    errorButton.addEventListener('click', function () {
+      var currentError = errorBlock.querySelector('.error');
+      errorBlock.removeChild(currentError);
+    });
+
+    errorBlock.addEventListener('keydown', function (event) {
+      evt.preventDefault();
+      if (event.key === 'Escape') {
+        var currentError = errorBlock.querySelector('.error');
+        errorBlock.removeChild(currentError);
+      }
+    });
+  }
+
+  adForm.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    window.backend.save(new FormData(adForm), doIfSuccess(), doIfError());
+  });
+
+  resetButton.addEventListener('click', function () {
+    adForm.reset();
+  })
+
+
 
   window.main = {
     adForm: adForm,

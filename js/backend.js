@@ -19,9 +19,9 @@
     xhr.send();
   };
 
-  /*
   var save = function (data, onLoad, onError) {
-    var URL = 'https://javascript.pages.academy/keksobooking';
+    var URL = document.querySelector('.map__filters').action;
+    console.log(URL);
     var xhr = new XMLHttpRequest();
     xhr.open('POST', URL);
 
@@ -34,11 +34,11 @@
       }
     });
 
-    xhr.send();
+    xhr.send(data);
   };
-  */
+
   window.backend = {
-    load: load
-    // save: save
+    load: load,
+    save: save
   };
 })();
