@@ -28,12 +28,12 @@
   var renderSuccess = function () {
     var successElement = newSuccess.cloneNode(true);
     return successElement;
-  }
+  };
 
   var renderError = function () {
     var errorElement = newError.cloneNode(true);
     return errorElement;
-  }
+  };
 
   var renderOffer = function (variantOffer) {
     var offerElement = newOffer.cloneNode(true);
@@ -98,26 +98,25 @@
       // делегирование
 
       similarListElement.addEventListener('click', function (event) {
-        //event.preventDefault();
+        // event.preventDefault();
         // console.log(event.target.alt);
-        //console.log(event.toElement.alt);
+        // console.log(event.toElement.alt);
         window.card.activateOffer(event.target.alt, offers);
       });
 
       similarListElement.addEventListener('keydown', function (event) {
         // почему event.target.alt undefined ?
-         //console.log(event.target.firstChild.alt);
-         //event.preventDefault();
+        // console.log(event.target.firstChild.alt);
+        // event.preventDefault();
         if (event.key === 'Enter') {
           event.preventDefault();
-          //console.log(event.target.querySelector('.map__pin--image').alt);
+          // console.log(event.target.querySelector('.map__pin--image').alt);
           window.card.activateOffer(event.target.querySelector('.map__pin--image').alt, offers);
         }
 
         if (event.key === 'Escape') {
           clearOffer();
         }
-
       });
 
       map.classList.remove('map--faded');
@@ -132,26 +131,26 @@
 
   // активация фильтра по типу жилья
   housingTypeFilter.addEventListener('change', function () {
-    //console.log(data[1]);
+    // console.log(data[1]);
     var filteredOffers = [];
 
     var pinOffers = document.querySelectorAll('.map__pin--offer');
     pinOffers.forEach(function (el) {
-      el.parentNode.removeChild(el)
-      //pinBlock.removeChild(el);
+      el.parentNode.removeChild(el);
+      // pinBlock.removeChild(el);
     });
 
     data.forEach(function (el) {
-      if (el.offer.type == housingTypeFilter.value) {
-        filteredOffers.push(el)
+      if (el.offer.type === housingTypeFilter.value) {
+        filteredOffers.push(el);
       }
     });
 
     var fragment = document.createDocumentFragment();
     var PIN_NUMBER_LIMIT = 5;
     for (var i = 0; i < filteredOffers.length; i++) {
-      if (i == PIN_NUMBER_LIMIT - 1) {
-        break
+      if (i === PIN_NUMBER_LIMIT - 1) {
+        break;
       }
       fragment.appendChild(renderAdvert(filteredOffers[i]));
     }
@@ -173,9 +172,8 @@
       if (event.key === 'Escape') {
         clearOffer();
       }
-
     });
-  })
+  });
 
   window.offers = {
     data: data,

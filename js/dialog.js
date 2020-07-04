@@ -9,7 +9,7 @@
   var MAX_Y_COORDS = 630;
 
   var pinMain = document.querySelector('.map__pin--main');
-  //var dialogHandle = pinMain.querySelector('.upload');
+  // var dialogHandle = pinMain.querySelector('.upload');
 
   pinMain.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
@@ -36,18 +36,18 @@
         y: moveEvt.clientY
       };
 
-      var Y = pinMain.offsetTop - shift.y
+      var Y = pinMain.offsetTop - shift.y;
       if (Y > MAX_Y_COORDS) {
-        Y = MAX_Y_COORDS
+        Y = MAX_Y_COORDS;
       } else if (Y < MIN_Y_COORDS) {
-        Y = MIN_Y_COORDS
+        Y = MIN_Y_COORDS;
       }
 
-      var X = pinMain.offsetLeft - shift.x
+      var X = pinMain.offsetLeft - shift.x;
       if (X > MAX_X_COORDS) {
-        X = MAX_X_COORDS
+        X = MAX_X_COORDS;
       } else if (X < MIN_X_COORDS) {
-        X = MIN_X_COORDS
+        X = MIN_X_COORDS;
       }
 
       pinMain.style.top = (Y) + 'px';

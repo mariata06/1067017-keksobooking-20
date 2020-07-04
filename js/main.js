@@ -8,7 +8,7 @@
   var selectFilters = mapFiltersForm.querySelectorAll('.map__filter');
   var mapPinMain = document.querySelector('.map__pin--main');
   var addressInput = adForm.querySelector('.address');
-  //var buttonSubmit = document.querySelector('.ad-form__submit');
+  // var buttonSubmit = document.querySelector('.ad-form__submit');
   var successBlock = document.querySelector('.success__block');
   var errorBlock = document.querySelector('.error__block');
   var resetButton = adForm.querySelector('.ad-form__reset');
@@ -58,31 +58,30 @@
   disactivate(fieldsetFilters);
   disactivate(selectFilters);
 
-  //сокрытие открытой карточки объявления при клике на любой из фильтров
+  // сокрытие открытой карточки объявления при клике на любой из фильтров
   selectFilters.forEach(function (el) {
     el.addEventListener('change', function () {
       window.offers.clearOffer();
-    })
-  })
+    });
+  });
 
   var doIfSuccess = function () {
     var fragment = document.createDocumentFragment();
     fragment.appendChild(window.offers.renderSuccess());
     successBlock.appendChild(fragment);
-    successBlock.addEventListener('click', function (event) {
+    successBlock.addEventListener('click', function () {
       var currentSuccess = successBlock.querySelector('.success');
       successBlock.removeChild(currentSuccess);
     });
 
     successBlock.addEventListener('keydown', function (event) {
-      evt.preventDefault();
       if (event.key === 'Escape') {
-
+        event.preventDefault();
         var currentSuccess = successBlock.querySelector('.success');
         successBlock.removeChild(currentSuccess);
       }
     });
-  }
+  };
 
   var doIfError = function () {
     var fragment = document.createDocumentFragment();
@@ -96,13 +95,13 @@
     });
 
     errorBlock.addEventListener('keydown', function (event) {
-      evt.preventDefault();
       if (event.key === 'Escape') {
+        event.preventDefault();
         var currentError = errorBlock.querySelector('.error');
         errorBlock.removeChild(currentError);
       }
     });
-  }
+  };
 
   adForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
@@ -111,9 +110,7 @@
 
   resetButton.addEventListener('click', function () {
     adForm.reset();
-  })
-
-
+  });
 
   window.main = {
     adForm: adForm,

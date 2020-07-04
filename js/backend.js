@@ -21,7 +21,7 @@
 
   var save = function (data, onLoad, onError) {
     var URL = document.querySelector('.map__filters').action;
-    console.log(URL);
+    // console.log(URL);
     var xhr = new XMLHttpRequest();
     xhr.open('POST', URL);
 
