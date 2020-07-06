@@ -9,7 +9,6 @@
   var newOffer = card.content.querySelector('.map__card');
   var pinBlock = document.querySelector('.map__offers');
   var data = [];
-  var housingTypeFilter = window.main.mapFiltersForm.querySelector('.housing-type');
   var successMessageTemplate = document.querySelector('#success');
   var newSuccess = successMessageTemplate.content.querySelector('.success');
   var errorMessageTemplate = document.querySelector('#error');
@@ -82,7 +81,7 @@
   var activateMap = function () {
     window.backend.load(function (offers) {
       var fragment = document.createDocumentFragment();
-
+      window.filters.mapFiltersForm.classList.remove('ad-form--disabled');
 
       offers.forEach(function (el) {
         data.push(el);
@@ -129,52 +128,6 @@
     });
   };
 
-  // активация фильтра по типу жилья
-  housingTypeFilter.addEventListener('change', function () {
-    // console.log(data[1]);
-    var filteredOffers = [];
-
-    var pinOffers = document.querySelectorAll('.map__pin--offer');
-    pinOffers.forEach(function (el) {
-      el.parentNode.removeChild(el);
-      // pinBlock.removeChild(el);
-    });
-
-    data.forEach(function (el) {
-      if (el.offer.type === housingTypeFilter.value) {
-        filteredOffers.push(el);
-      }
-    });
-
-    var fragment = document.createDocumentFragment();
-    var PIN_NUMBER_LIMIT = 5;
-    for (var i = 0; i < filteredOffers.length; i++) {
-      if (i === PIN_NUMBER_LIMIT - 1) {
-        break;
-      }
-      fragment.appendChild(renderAdvert(filteredOffers[i]));
-    }
-    similarListElement.appendChild(fragment);
-
-    // делегирование
-    similarListElement.addEventListener('click', function (event) {
-      // console.log(event.target.alt);
-      window.card.activateOffer(event.target.alt, filteredOffers);
-    });
-
-    similarListElement.addEventListener('keydown', function (event) {
-      // почему event.target.alt undefined ?
-      // console.log(event.target.alt);
-      if (event.key === 'Enter') {
-        window.card.activateOffer(event.target.children[0].alt, filteredOffers);
-      }
-
-      if (event.key === 'Escape') {
-        clearOffer();
-      }
-    });
-  });
-
   window.offers = {
     data: data,
     activateMap: activateMap,
@@ -183,6 +136,8 @@
     pinBlock: pinBlock,
     renderOffer: renderOffer,
     renderSuccess: renderSuccess,
-    renderError: renderError
+    renderError: renderError,
+    data: data,
+    similarListElement: similarListElement
   };
 })();

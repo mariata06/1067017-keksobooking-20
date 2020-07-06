@@ -5,11 +5,12 @@
   var activateOffer = function (alt, offers) {
     window.offers.clearOffer();
 
+    var fragment = document.createDocumentFragment();
     Array.from(offers).forEach(function (el) {
       if (alt === el.offer.title) {
-        window.offers.pinBlock.appendChild(window.offers.renderOffer(el));
+        fragment.appendChild(window.offers.renderOffer(el));
 
-        var popup = window.offers.pinBlock.querySelector('.popup');
+        var popup = fragment.querySelector('.popup');
         var popupClose = popup.querySelector('.popup__close');
 
         var closePopup = function () {
@@ -21,6 +22,7 @@
         });
       }
     });
+    window.offers.pinBlock.appendChild(fragment);
   };
 
   window.card = {
