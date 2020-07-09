@@ -26,9 +26,15 @@
 
   // сокрытие открытой карточки объявления при клике на любой из фильтров
   selectFilters.forEach(function (el) {
+    window.debounce(el.addEventListener('change', function () {
+      window.offers.clearOffer();
+    }));
+/*
     el.addEventListener('change', function () {
       window.offers.clearOffer();
+      window.debounce(el);
     });
+*/
   });
 
   var isSelectedType = function (houseType, type) {
@@ -167,7 +173,7 @@
       }
 
       if (event.key === 'Escape') {
-        clearOffer();
+        window.offers.clearOffer();
       }
     });
   });

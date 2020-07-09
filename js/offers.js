@@ -137,7 +137,6 @@
     renderOffer: renderOffer,
     renderSuccess: renderSuccess,
     renderError: renderError,
-    data: data,
     similarListElement: similarListElement
   };
 })();
