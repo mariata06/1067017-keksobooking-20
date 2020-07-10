@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var MIN_HOUSE_PRICE = 10000;
+  var MAX_HOUSE_PRICE = 50000;
   var mapFiltersForm = document.querySelector('.map__filters');
   var fieldsetFilters = mapFiltersForm.querySelector('.map__features');
   var selectFilters = mapFiltersForm.querySelectorAll('.map__filter');
@@ -11,13 +13,11 @@
 
   var getCheckedCheckboxes = function () {
     var selectedCheckboxes = mapFiltersForm.querySelectorAll('.map__checkbox');
-
     var checkedValues = [];
     selectedCheckboxes.forEach((checkbox) => {
-      if(checkbox.checked) checkedValues.push(checkbox.value);
+      if (checkbox.checked) checkedValues.push(checkbox.value);
     });
 
-    //console.log(checkedValues)
     return checkedValues;
   }
 
@@ -25,16 +25,11 @@
   mapFiltersForm.classList.add('ad-form--disabled');
 
   // сокрытие открытой карточки объявления при клике на любой из фильтров
+  // устранение дребезга
   selectFilters.forEach(function (el) {
-    window.debounce(el.addEventListener('change', function () {
+    el.addEventListener('change', window.debounce.debounce(function () {
       window.offers.clearOffer();
     }));
-/*
-    el.addEventListener('change', function () {
-      window.offers.clearOffer();
-      window.debounce(el);
-    });
-*/
   });
 
   var isSelectedType = function (houseType, type) {
@@ -57,37 +52,20 @@
         isInRange = true;
         break;
       case 'middle':
-        if (housePrice >= 10000 && housePrice <= 50000) isInRange = true;
+        if (housePrice >= MIN_HOUSE_PRICE && housePrice <= MAX_HOUSE_PRICE) isInRange = true;
         break;
       case 'low':
-        if (housePrice < 10000) isInRange = true;
+        if (housePrice < MIN_HOUSE_PRICE) isInRange = true;
         break;
       case 'high':
-        if (housePrice > 50000) isInRange = true;
+        if (housePrice > MAX_HOUSE_PRICE) isInRange = true;
         break;
     }
-
     return isInRange;
   }
 
   var isSelectedRooms = function (houseRooms, rooms) {
     var isFit = false;
-    /*
-    switch (rooms) {
-      case 'any':
-        isFit = true;
-        break;
-      case '1':
-        if (houseRooms === 1) isFit = true;
-        break;
-      case '2':
-        if (houseRooms === 2) isFit = true;
-        break;
-      case '3':
-        if (houseRooms === 3) isFit = true;
-        break;
-    }
-*/
     if (rooms === 'any') {
       isFit = true;
     } else {
@@ -109,37 +87,28 @@
 
   var isCheckedFeatures = function (houseFeatures, checkedFeatures) {
     var isFit = true;
-    //console.log(checkedFeatures)
     checkedFeatures.forEach(function (el) {
-      // console.log(houseFeatures.indexOf(el))
       if (houseFeatures.indexOf(el) == -1) {
         isFit = false;
       }
-
     })
     return isFit;
   }
 
   // активация фильтров
-  // housingTypeFilter.addEventListener('change', function () {
   mapFiltersForm.addEventListener('change', function () {
-    // console.log(data[1]);
     var filteredOffers = [];
-    // console.log(getCheckedCheckboxes());
     var pinOffers = document.querySelectorAll('.map__pin--offer');
     pinOffers.forEach(function (el) {
       el.parentNode.removeChild(el);
-      // pinBlock.removeChild(el);
     });
 
     window.offers.data.forEach(function (el) {
-
-      // console.log(housingPriceFilter.options[housingPriceFilter.selectedIndex].value);
       var selectedType = housingTypeFilter.options[housingTypeFilter.selectedIndex].value;
       var selectedRange = housingPriceFilter.options[housingPriceFilter.selectedIndex].value;
       var selectedRooms = housingRoomsFilter.options[housingRoomsFilter.selectedIndex].value;
       var selectedGuests = housingCapacityFilter.options[housingCapacityFilter.selectedIndex].value;
-      // console.log(isCheckedFeatures(el.offer.features, getCheckedCheckboxes()));
+
       if (isSelectedType(el.offer.type, selectedType) &&
         isSelectedPrice(el.offer.price, selectedRange) &&
         isSelectedRooms(el.offer.rooms, selectedRooms) &&
@@ -161,13 +130,10 @@
 
     // делегирование
     window.offers.similarListElement.addEventListener('click', function (event) {
-      // console.log(event.target.alt);
       window.card.activateOffer(event.target.alt, filteredOffers);
     });
 
     window.offers.similarListElement.addEventListener('keydown', function (event) {
-      // почему event.target.alt undefined ?
-      // console.log(event.target.alt);
       if (event.key === 'Enter') {
         window.card.activateOffer(event.target.children[0].alt, filteredOffers);
       }
@@ -183,5 +149,4 @@
     fieldsetFilters: fieldsetFilters,
     selectFilters: selectFilters
   };
-
 })();

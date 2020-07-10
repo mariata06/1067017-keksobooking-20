@@ -95,21 +95,13 @@
       similarListElement.appendChild(fragment);
 
       // делегирование
-
       similarListElement.addEventListener('click', function (event) {
-        // event.preventDefault();
-        // console.log(event.target.alt);
-        // console.log(event.toElement.alt);
         window.card.activateOffer(event.target.alt, offers);
       });
 
       similarListElement.addEventListener('keydown', function (event) {
-        // почему event.target.alt undefined ?
-        // console.log(event.target.firstChild.alt);
-        // event.preventDefault();
         if (event.key === 'Enter') {
           event.preventDefault();
-          // console.log(event.target.querySelector('.map__pin--image').alt);
           window.card.activateOffer(event.target.querySelector('.map__pin--image').alt, offers);
         }
 

@@ -17,7 +17,6 @@
     'image/svg'
   ];
   var avatarPreview = window.main.adForm.querySelector('.ad-form-header__preview');
-  // var housingPhotoPreview = window.main.adForm.querySelector('.ad-form__photo');
   var housingPhotoContainer = window.main.adForm.querySelector('.ad-form__photo-container');
 
   var isEmptyAdPhoto = true;
@@ -94,11 +93,8 @@
     var selectedFile = avatarPhoto.files[0];
     if (!validateFileType(selectedFile)) {
       avatarPhoto.setCustomValidity('Должны быть файлы svg, png, gif или jpg');
-      // console.log(selectedFile);
     } else {
       avatarPhoto.setCustomValidity('');
-      // console.log(selectedFile);
-      // avatarPreview.children[0].src = 'img/' + selectedFile.name;
       var currentAvatar = avatarPreview.querySelector('.avatarImg');
       avatarPreview.removeChild(currentAvatar);
       handleFiles(selectedFile, avatarPreview, true);
@@ -112,15 +108,7 @@
       housingPhoto.setCustomValidity('Должны быть файлы svg, png, gif или jpg');
     } else {
       housingPhoto.setCustomValidity('');
-      /*
-            if (housingPhotoPreview.querySelector('.ad-form__photo--image').src === '') {
-              housingPhotoPreview.querySelector('.ad-form__photo--image').src = 'img/' + selectedFile.name;
-            } else {
-              var photo = housingPhotoPreview.querySelector('.ad-form__photo--image').cloneNode(true);
-              photo.src = 'img/' + selectedFile.name;
-              housingPhotoPreview.appendChild(photo);
-            }
-      */
+
       var divAdPhoto;
       if (isEmptyAdPhoto) {
         divAdPhoto = housingPhotoContainer.querySelector('.ad-form__photo');
@@ -143,7 +131,7 @@
     } else {
       img.classList.add('housingImg');
     }
-    // img.file = file;
+
     img.height = divAdFormPhoto.offsetHeight;
     img.width = divAdFormPhoto.offsetWidth;
     divAdFormPhoto.appendChild(img);
@@ -152,38 +140,7 @@
     reader.onload = function (e) {
       img.src = e.target.result;
     };
-    /*
-    reader.onload = (function (aImg) {
-      return function (e) {
-        aImg.src = e.target.result;
-      };
-    })(img);
-    */
-    // alert('test');
+
     reader.readAsDataURL(file);
   }
-
-  /*
-    function handleFiles(files) {
-      for (var i = 0; i < files.length; i++) {
-        var file = files[i];
-
-        //if (!file.type.startsWith('image/')){
-        if (!validateFileType(file)) {
-          housingPhoto.setCustomValidity('Должны быть файлы png, gif или jpg');
-        } else {
-          housingPhoto.setCustomValidity('');
-
-          var img = document.createElement("img");
-          img.classList.add("obj");
-          img.file = file;
-          housingPhotoPreview.appendChild(img);
-
-          var reader = new FileReader();
-          reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
-          reader.readAsDataURL(file);
-        /}
-      }
-    }
-  */
 })();

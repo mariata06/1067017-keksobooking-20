@@ -4,7 +4,6 @@
   var adForm = document.querySelector('.ad-form');
   var mapPinMain = document.querySelector('.map__pin--main');
   var addressInput = adForm.querySelector('.address');
-  // var buttonSubmit = document.querySelector('.ad-form__submit');
   var successBlock = document.querySelector('.success__block');
   var errorBlock = document.querySelector('.error__block');
   var resetButton = adForm.querySelector('.ad-form__reset');
@@ -53,8 +52,6 @@
   }
 
   var doIfSuccess = function () {
-    // var fragment = document.createDocumentFragment();
-    // fragment.appendChild(window.offers.renderSuccess());
     successBlock.appendChild(window.offers.renderSuccess());
     successBlock.addEventListener('click', function () {
       var currentSuccess = successBlock.querySelector('.success');
@@ -71,8 +68,6 @@
   };
 
   var doIfError = function () {
-    // var fragment = document.createDocumentFragment();
-    // fragment.appendChild(window.offers.renderError());
     errorBlock.appendChild(window.offers.renderError());
 
     var errorButton = errorBlock.querySelector('.error__button');
@@ -103,5 +98,4 @@
     adForm: adForm,
     addressInput: addressInput
   };
-
 })();
