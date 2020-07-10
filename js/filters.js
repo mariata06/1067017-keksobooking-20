@@ -14,7 +14,7 @@
   var getCheckedCheckboxes = function () {
     var selectedCheckboxes = mapFiltersForm.querySelectorAll('.map__checkbox');
     var checkedValues = [];
-    selectedCheckboxes.forEach((checkbox) => {
+    selectedCheckboxes.forEach(function (checkbox) {
       if (checkbox.checked) checkedValues.push(checkbox.value);
     });
 
