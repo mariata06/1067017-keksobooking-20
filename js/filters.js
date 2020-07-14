@@ -104,6 +104,7 @@
     });
 
     window.offers.data.forEach(function (el) {
+
       var selectedType = housingTypeFilter.options[housingTypeFilter.selectedIndex].value;
       var selectedRange = housingPriceFilter.options[housingPriceFilter.selectedIndex].value;
       var selectedRooms = housingRoomsFilter.options[housingRoomsFilter.selectedIndex].value;
@@ -113,15 +114,17 @@
         isSelectedPrice(el.offer.price, selectedRange) &&
         isSelectedRooms(el.offer.rooms, selectedRooms) &&
         isSelectedGuests(el.offer.guests, selectedGuests) &&
-        isCheckedFeatures(el.offer.features, getCheckedCheckboxes())) {
+        isCheckedFeatures(el.offer.features, getCheckedCheckboxes())
+        ) {
         filteredOffers.push(el);
       }
+
     });
 
     var fragment = document.createDocumentFragment();
     var PIN_NUMBER_LIMIT = 5;
     for (var i = 0; i < filteredOffers.length; i++) {
-      if (i === PIN_NUMBER_LIMIT - 1) {
+      if (i === PIN_NUMBER_LIMIT) {
         break;
       }
       fragment.appendChild(window.offers.renderAdvert(filteredOffers[i]));
