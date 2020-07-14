@@ -110,10 +110,11 @@
       housingPhoto.setCustomValidity('');
 
       var divAdPhoto;
-      if (isEmptyAdPhoto) {
+      // console.log('validation: ' + isEmptyAdPhoto)
+      if (window.validation.isEmptyAdPhoto) {
         divAdPhoto = housingPhotoContainer.querySelector('.ad-form__photo');
         handleFiles(selectedFile, divAdPhoto, false);
-        isEmptyAdPhoto = false;
+        window.validation.isEmptyAdPhoto = false;
       } else {
         divAdPhoto = document.createElement('div');
         divAdPhoto.classList.add('ad-form__photo');
@@ -142,5 +143,12 @@
     };
 
     reader.readAsDataURL(file);
+  }
+
+  window.validation = {
+    avatarPreview: avatarPreview,
+    isEmptyAdPhoto: isEmptyAdPhoto,
+    qtyGuests: qtyGuests,
+    qtyRooms: qtyRooms
   }
 })();

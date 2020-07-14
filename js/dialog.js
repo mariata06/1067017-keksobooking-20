@@ -57,7 +57,7 @@
       upEvt.preventDefault();
 
       document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseup', onMouseUp);
+      document.removeEventListener('mouseup', window.main.leftMouseButtonClickHandler(upEvt));
 
       if (dragged) {
         var onClickPreventDefault = function (clickEvt) {

@@ -1,9 +1,9 @@
 'use strict';
 
 (function () {
-  var similarListElement = document.querySelector('.map__pins');
+  var similarListElement = document.querySelector('.map__pins'); // карта с пинами объявлений на карте
   var similarAdvertTemplate = document.querySelector('#pin');
-  var newAdvert = similarAdvertTemplate.content.querySelector('.map__pin');
+  var newAdvert = similarAdvertTemplate.content.querySelector('.map__pin'); // пин объявления на карте
   var map = document.querySelector('.map');
   var card = document.querySelector('#card');
   var newOffer = card.content.querySelector('.map__card');
@@ -130,5 +130,6 @@
     renderSuccess: renderSuccess,
     renderError: renderError,
     similarListElement: similarListElement
+    //advertElement: advertElement
   };
 })();

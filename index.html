@@ -103,7 +103,8 @@
               <img src="img/muffin-grey.svg" class="avatarImg" alt="Аватар пользователя" width="40" height="44">
             </div>
             <div class="ad-form__field">
-              <input type="file" id="avatar" name="avatar" class="ad-form-header__input visually-hidden">
+              <input type="file" id="avatar" name="avatar"
+                class="ad-form__element ad-form-header__input visually-hidden">
               <label class="ad-form-header__drop-zone" for="avatar">Загрузить<br>фото...</label>
             </div>
             <p class="ad-form-header__info">Заполните все обязательные поля, назначьте цену, загрузите фотографии.
@@ -258,8 +259,8 @@
 
   <!-- Метка объявления -->
   <template id="pin">
-    <button type="button" class="map__pin map__pin--offer" style="left: 200px; top: 400px;"><img class="map__pin--image" src="img/avatars/user07.png" width="40"
-        height="40" draggable="false" alt="Метка объявления"></button>
+    <button type="button" class="map__pin map__pin--offer" style="left: 200px; top: 400px;"><img class="map__pin--image"
+        src="img/avatars/user07.png" width="40" height="40" draggable="false" alt="Метка объявления"></button>
   </template>
 
   <!-- Сообщение об успешном создании объявления -->
@@ -281,9 +282,10 @@
   <script src="js/backend.js"></script>
   <script src="js/debounce.js"></script>
   <script src="js/filters.js"></script>
+  <script src="js/offers.js"></script>
   <script src="js/main.js"></script>
   <script src="js/validation.js"></script>
-  <script src="js/offers.js"></script>
+
   <script src="js/dialog.js"></script>
   <script src="js/card.js"></script>
 </body>
