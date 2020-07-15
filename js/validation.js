@@ -1,23 +1,24 @@
 'use strict';
 
 (function () {
-  var titleInput = window.main.adForm.querySelector('.title');
-  var pricePerNight = window.main.adForm.querySelector('.price');
-  var typeOfHousing = window.main.adForm.querySelector('.housing_type');
-  var qtyRooms = window.main.adForm.querySelector('.room_number');
-  var qtyGuests = window.main.adForm.querySelector('.capacity');
-  var checkinTime = window.main.adForm.querySelector('.timein');
-  var checkoutTime = window.main.adForm.querySelector('.timeout');
-  var avatarPhoto = window.main.adForm.querySelector('.ad-form-header__input');
-  var housingPhoto = window.main.adForm.querySelector('.ad-form__input');
+  var adForm = document.querySelector('.ad-form');
+  var titleInput = adForm.querySelector('.title');
+  var pricePerNight = adForm.querySelector('.price');
+  var typeOfHousing = adForm.querySelector('.housing_type');
+  var qtyRooms = adForm.querySelector('.room_number');
+  var qtyGuests = adForm.querySelector('.capacity');
+  var checkinTime = adForm.querySelector('.timein');
+  var checkoutTime = adForm.querySelector('.timeout');
+  var avatarPhoto = adForm.querySelector('.ad-form-header__input');
+  var housingPhoto = adForm.querySelector('.ad-form__input');
   var fileTypes = [
     'image/jpeg',
     'image/gif',
     'image/png',
     'image/svg'
   ];
-  var avatarPreview = window.main.adForm.querySelector('.ad-form-header__preview');
-  var housingPhotoContainer = window.main.adForm.querySelector('.ad-form__photo-container');
+  var avatarPreview = adForm.querySelector('.ad-form-header__preview');
+  var housingPhotoContainer = adForm.querySelector('.ad-form__photo-container');
 
   var isEmptyAdPhoto = true;
 
@@ -51,6 +52,12 @@
       pricePerNight.setCustomValidity('');
     }
   });
+
+  typeOfHousing.addEventListener('change', function () {
+    var selectedType = typeOfHousing.value
+    pricePerNight.placeholder = window.util.MIN_PRICE[selectedType]
+    //console.log(selectedType)
+  })
 
   // валидация полей формы число комнат - число гостей
   var checkGuests = function () {
@@ -146,6 +153,7 @@
   }
 
   window.validation = {
+    adForm: adForm,
     avatarPreview: avatarPreview,
     isEmptyAdPhoto: isEmptyAdPhoto,
     qtyGuests: qtyGuests,

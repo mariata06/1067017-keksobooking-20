@@ -8,9 +8,9 @@
   var MIN_Y_COORDS = 130;
   var MAX_Y_COORDS = 630;
 
-  var pinMain = document.querySelector('.map__pin--main');
+  //var pinMain = document.querySelector('.map__pin--main');
 
-  pinMain.addEventListener('mousedown', function (evt) {
+  window.main.mapPinMain.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
 
     var startCoords = {
@@ -35,22 +35,22 @@
         y: moveEvt.clientY
       };
 
-      var currentY = pinMain.offsetTop - shift.y;
+      var currentY = window.main.mapPinMain.offsetTop - shift.y;
       if (currentY > MAX_Y_COORDS) {
         currentY = MAX_Y_COORDS;
       } else if (currentY < MIN_Y_COORDS) {
         currentY = MIN_Y_COORDS;
       }
 
-      var currentX = pinMain.offsetLeft - shift.x;
+      var currentX = window.main.mapPinMain.offsetLeft - shift.x;
       if (currentX > MAX_X_COORDS) {
         currentX = MAX_X_COORDS;
       } else if (currentX < MIN_X_COORDS) {
         currentX = MIN_X_COORDS;
       }
 
-      pinMain.style.top = (currentY) + 'px';
-      pinMain.style.left = (currentX) + 'px';
+      window.main.mapPinMain.style.top = (currentY) + 'px';
+      window.main.mapPinMain.style.left = (currentX) + 'px';
     };
 
     var onMouseUp = function (upEvt) {
@@ -62,9 +62,9 @@
       if (dragged) {
         var onClickPreventDefault = function (clickEvt) {
           clickEvt.preventDefault();
-          pinMain.removeEventListener('click', onClickPreventDefault);
+          window.main.mapPinMain.removeEventListener('click', onClickPreventDefault);
         };
-        pinMain.addEventListener('click', onClickPreventDefault);
+        window.main.mapPinMain.addEventListener('click', onClickPreventDefault);
       }
     };
 
