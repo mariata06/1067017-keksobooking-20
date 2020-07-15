@@ -1,13 +1,18 @@
 'use strict';
 
 (function () {
-  var similarListElement = document.querySelector('.map__pins');
+  var similarListElement = document.querySelector('.map__pins'); // карта с пинами объявлений на карте
   var similarAdvertTemplate = document.querySelector('#pin');
-  var newAdvert = similarAdvertTemplate.content.querySelector('.map__pin');
+  var newAdvert = similarAdvertTemplate.content.querySelector('.map__pin'); // пин объявления на карте
   var map = document.querySelector('.map');
   var card = document.querySelector('#card');
   var newOffer = card.content.querySelector('.map__card');
   var pinBlock = document.querySelector('.map__offers');
+  var data = [];
+  var successMessageTemplate = document.querySelector('#success');
+  var newSuccess = successMessageTemplate.content.querySelector('.success');
+  var errorMessageTemplate = document.querySelector('#error');
+  var newError = errorMessageTemplate.content.querySelector('.error');
 
   var renderAdvert = function (variantStorage) {
     var advertElement = newAdvert.cloneNode(true);
@@ -17,6 +22,16 @@
     advertElement.style.top = variantStorage.location.y - window.util.PIN_Y + 'px';
 
     return advertElement;
+  };
+
+  var renderSuccess = function () {
+    var successElement = newSuccess.cloneNode(true);
+    return successElement;
+  };
+
+  var renderError = function () {
+    var errorElement = newError.cloneNode(true);
+    return errorElement;
   };
 
   var renderOffer = function (variantOffer) {
@@ -66,29 +81,33 @@
   var activateMap = function () {
     window.backend.load(function (offers) {
       var fragment = document.createDocumentFragment();
+      window.filters.mapFiltersForm.classList.remove('ad-form--disabled');
 
       offers.forEach(function (el) {
-        fragment.appendChild(renderAdvert(el));
+        data.push(el);
       });
+
+      // Вывод на карту не более 5 меток при активации карты
+      var PIN_NUMBER_LIMIT = 5;
+      for (var i = 0; i < PIN_NUMBER_LIMIT; i++) {
+        fragment.appendChild(renderAdvert(offers[i]));
+      }
       similarListElement.appendChild(fragment);
 
       // делегирование
       similarListElement.addEventListener('click', function (event) {
-        // console.log(event.target.alt);
-        activateOffer(event.target.alt, offers);
+        window.card.activateOffer(event.target.alt, offers);
       });
 
       similarListElement.addEventListener('keydown', function (event) {
-        // почему event.target.alt undefined ?
-        // console.log(event.target.alt);
         if (event.key === 'Enter') {
-          activateOffer(event.target.alt, offers);
+          event.preventDefault();
+          window.card.activateOffer(event.target.querySelector('.map__pin--image').alt, offers);
         }
 
         if (event.key === 'Escape') {
           clearOffer();
         }
-
       });
 
       map.classList.remove('map--faded');
@@ -101,28 +120,16 @@
     });
   };
 
-  var activateOffer = function (alt, offers) {
-    clearOffer();
-
-    Array.from(offers).forEach(function (el) {
-      if (alt === el.offer.title) {
-        pinBlock.appendChild(renderOffer(el));
-
-        var popup = pinBlock.querySelector('.popup');
-        var popupClose = popup.querySelector('.popup__close');
-
-        var closePopup = function () {
-          popup.classList.add('hidden');
-        };
-
-        popupClose.addEventListener('click', function () {
-          closePopup();
-        });
-      }
-    });
-  };
-
   window.offers = {
-    activateMap: activateMap
+    data: data,
+    activateMap: activateMap,
+    clearOffer: clearOffer,
+    renderAdvert: renderAdvert,
+    pinBlock: pinBlock,
+    renderOffer: renderOffer,
+    renderSuccess: renderSuccess,
+    renderError: renderError,
+    similarListElement: similarListElement
+    //advertElement: advertElement
   };
 })();

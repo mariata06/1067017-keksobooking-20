@@ -19,26 +19,26 @@
     xhr.send();
   };
 
-  /*
   var save = function (data, onLoad, onError) {
-    var URL = 'https://javascript.pages.academy/keksobooking';
+    var URL = document.querySelector('.map__filters').action;
     var xhr = new XMLHttpRequest();
     xhr.open('POST', URL);
 
     xhr.addEventListener('load', function () {
       if (xhr.status === 200) {
         onLoad(xhr.response);
-        window.setup.userDialog.classList.add('hidden');
       } else {
         onError('Cтатус ответа: ' + xhr.status + ' ' + xhr.statusText);
       }
     });
 
-    xhr.send();
+    //try {
+      xhr.send(data);
+    //} catch () {}
   };
-  */
+
   window.backend = {
-    load: load
-    // save: save
+    load: load,
+    save: save
   };
 })();
