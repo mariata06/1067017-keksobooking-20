@@ -15,11 +15,13 @@
     var selectedCheckboxes = mapFiltersForm.querySelectorAll('.map__checkbox');
     var checkedValues = [];
     selectedCheckboxes.forEach(function (checkbox) {
-      if (checkbox.checked) checkedValues.push(checkbox.value);
+      if (checkbox.checked) {
+        checkedValues.push(checkbox.value);
+      }
     });
 
     return checkedValues;
-  }
+  };
 
   // блокировка селектов фильтров на карте
   mapFiltersForm.classList.add('ad-form--disabled');
@@ -38,11 +40,11 @@
     if (type === 'any') {
       isFit = true;
     } else {
-      isFit = (houseType === type)
+      isFit = (houseType === type);
     }
 
     return isFit;
-  }
+  };
 
   var isSelectedPrice = function (housePrice, priceRange) {
     var isInRange = false;
@@ -52,27 +54,33 @@
         isInRange = true;
         break;
       case 'middle':
-        if (housePrice >= MIN_HOUSE_PRICE && housePrice <= MAX_HOUSE_PRICE) isInRange = true;
+        if (housePrice >= MIN_HOUSE_PRICE && housePrice <= MAX_HOUSE_PRICE) {
+          isInRange = true;
+        }
         break;
       case 'low':
-        if (housePrice < MIN_HOUSE_PRICE) isInRange = true;
+        if (housePrice < MIN_HOUSE_PRICE) {
+          isInRange = true;
+        }
         break;
       case 'high':
-        if (housePrice > MAX_HOUSE_PRICE) isInRange = true;
+        if (housePrice > MAX_HOUSE_PRICE) {
+          isInRange = true;
+        }
         break;
     }
     return isInRange;
-  }
+  };
 
   var isSelectedRooms = function (houseRooms, rooms) {
     var isFit = false;
     if (rooms === 'any') {
       isFit = true;
     } else {
-      isFit = (houseRooms == rooms);
+      isFit = (houseRooms === rooms);
     }
     return isFit;
-  }
+  };
 
   var isSelectedGuests = function (houseGuests, guests) {
     var isFit = false;
@@ -80,23 +88,24 @@
     if (guests === 'any') {
       isFit = true;
     } else {
-      isFit = (houseGuests == guests);
+      isFit = (houseGuests === guests);
     }
     return isFit;
-  }
+  };
 
   var isCheckedFeatures = function (houseFeatures, checkedFeatures) {
     var isFit = true;
     checkedFeatures.forEach(function (el) {
-      if (houseFeatures.indexOf(el) == -1) {
+      if (houseFeatures.indexOf(el) === -1) {
         isFit = false;
       }
-    })
+    });
     return isFit;
-  }
+  };
 
   // активация фильтров
-  mapFiltersForm.addEventListener('change', function () {
+  // устранение дребезга
+  mapFiltersForm.addEventListener('change', window.debounce.debounce(function () {
     var filteredOffers = [];
     var pinOffers = document.querySelectorAll('.map__pin--offer');
     pinOffers.forEach(function (el) {
@@ -115,7 +124,7 @@
         isSelectedRooms(el.offer.rooms, selectedRooms) &&
         isSelectedGuests(el.offer.guests, selectedGuests) &&
         isCheckedFeatures(el.offer.features, getCheckedCheckboxes())
-        ) {
+      ) {
         filteredOffers.push(el);
       }
 
@@ -145,7 +154,7 @@
         window.offers.clearOffer();
       }
     });
-  });
+  }));
 
   window.filters = {
     mapFiltersForm: mapFiltersForm,

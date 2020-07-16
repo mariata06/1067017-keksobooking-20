@@ -32,9 +32,7 @@
       }
     });
 
-    //try {
-      xhr.send(data);
-    //} catch () {}
+    xhr.send(data);
   };
 
   window.backend = {

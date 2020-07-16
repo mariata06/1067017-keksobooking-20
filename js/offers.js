@@ -96,7 +96,9 @@
 
       // делегирование
       similarListElement.addEventListener('click', function (event) {
-        window.card.activateOffer(event.target.alt, offers);
+        if (event.target.className !== 'map__overlay') {
+          window.card.activateOffer(event.target.alt, offers);
+        }
       });
 
       similarListElement.addEventListener('keydown', function (event) {
@@ -130,6 +132,5 @@
     renderSuccess: renderSuccess,
     renderError: renderError,
     similarListElement: similarListElement
-    //advertElement: advertElement
   };
 })();
