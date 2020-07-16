@@ -15,7 +15,7 @@
   // координаты большой круглой метки после открытия страницы, но до активации карты
   var xCoordinate = mapPinMain.style.left;
   var yCoordinate = mapPinMain.style.top;
-  var imgMuffin = document.querySelector('.map__pin--main').children[0]
+  var imgMuffin = document.querySelector('.map__pin--main').children[0];
   addressInput.value = Number(xCoordinate.substr(0, xCoordinate.length - 2)) + imgMuffin.width / 2 + ', ' + (Number(yCoordinate.substr(0, yCoordinate.length - 2)) + imgMuffin.height / 2);
 
   // активация карты
@@ -23,7 +23,7 @@
 
   var flagMapActivation = false;
 
-  //активация фильтров жилья при активации карты
+  // активация фильтров жилья при активации карты
   var activateElementsOfForm = function (tags) {
     Array.from(tags).forEach(function (el) {
       el.removeAttribute('disabled');
@@ -48,15 +48,15 @@
           window.offers.activateMap();
 
           flagMapActivation = true;
-        })
-
+        });
       }
+
       mapPinMain.addEventListener('click', function () {
         activateElementsOfForm(fieldsetForms);
         activateElementsOfForm(window.filters.fieldsetFilters);
         activateElementsOfForm(window.filters.selectFilters);
         window.validation.adForm.classList.remove('ad-form--disabled');
-      })
+      });
 
       xCoordinate = mapPinMain.style.left;
       yCoordinate = mapPinMain.style.top;
@@ -112,7 +112,6 @@
       }
     });
     clearPins();
-
   };
 
   window.validation.adForm.addEventListener('submit', function (evt) {

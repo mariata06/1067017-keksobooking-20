@@ -54,9 +54,9 @@
   });
 
   typeOfHousing.addEventListener('change', function () {
-    var selectedType = typeOfHousing.value
-    pricePerNight.placeholder = window.util.MIN_PRICE[selectedType]
-  })
+    var selectedType = typeOfHousing.value;
+    pricePerNight.placeholder = window.util.MIN_PRICE[selectedType];
+  });
 
   // валидация полей формы число комнат - число гостей
   var checkGuests = function () {
@@ -156,5 +156,5 @@
     isEmptyAdPhoto: isEmptyAdPhoto,
     qtyGuests: qtyGuests,
     qtyRooms: qtyRooms
-  }
+  };
 })();

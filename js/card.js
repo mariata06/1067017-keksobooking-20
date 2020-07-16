@@ -3,7 +3,6 @@
 (function () {
 
   var activateOffer = function (alt, offers) {
-    
     window.offers.clearOffer();
 
     var fragment = document.createDocumentFragment();

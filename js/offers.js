@@ -96,7 +96,6 @@
 
       // делегирование
       similarListElement.addEventListener('click', function (event) {
-        console.log(event);
         if (event.target.className !== 'map__overlay') {
           window.card.activateOffer(event.target.alt, offers);
         }
