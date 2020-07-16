@@ -96,7 +96,7 @@
   }
 
   // активация фильтров
-  mapFiltersForm.addEventListener('change', function () {
+  mapFiltersForm.addEventListener('change', window.debounce.debounce(function () {
     var filteredOffers = [];
     var pinOffers = document.querySelectorAll('.map__pin--offer');
     pinOffers.forEach(function (el) {
@@ -145,7 +145,7 @@
         window.offers.clearOffer();
       }
     });
-  });
+  }));
 
   window.filters = {
     mapFiltersForm: mapFiltersForm,

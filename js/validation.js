@@ -56,7 +56,6 @@
   typeOfHousing.addEventListener('change', function () {
     var selectedType = typeOfHousing.value
     pricePerNight.placeholder = window.util.MIN_PRICE[selectedType]
-    //console.log(selectedType)
   })
 
   // валидация полей формы число комнат - число гостей
@@ -117,7 +116,6 @@
       housingPhoto.setCustomValidity('');
 
       var divAdPhoto;
-      // console.log('validation: ' + isEmptyAdPhoto)
       if (window.validation.isEmptyAdPhoto) {
         divAdPhoto = housingPhotoContainer.querySelector('.ad-form__photo');
         handleFiles(selectedFile, divAdPhoto, false);

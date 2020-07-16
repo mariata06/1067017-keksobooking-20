@@ -3,12 +3,10 @@
 (function () {
   var START_X_COORDS = '570px';
   var START_Y_COORDS = '375px';
-  var MIN_X_COORDS = 0;
-  var MAX_X_COORDS = 1137;
+  var MIN_X_COORDS = -31;
+  var MAX_X_COORDS = 1168;
   var MIN_Y_COORDS = 130;
   var MAX_Y_COORDS = 630;
-
-  //var pinMain = document.querySelector('.map__pin--main');
 
   window.main.mapPinMain.addEventListener('mousedown', function (evt) {
     evt.preventDefault();

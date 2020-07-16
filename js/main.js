@@ -8,7 +8,6 @@
   var errorBlock = document.querySelector('.error__block');
   var resetButton = window.validation.adForm.querySelector('.ad-form__reset');
   var fieldsetForms = window.validation.adForm.querySelectorAll('.ad-form__element');
-  // var mapPins = document.querySelector('.map-pins');
 
   // блокировка формы
   window.validation.adForm.classList.add('ad-form--disabled');
@@ -19,7 +18,7 @@
   var imgMuffin = document.querySelector('.map__pin--main').children[0]
   addressInput.value = Number(xCoordinate.substr(0, xCoordinate.length - 2)) + imgMuffin.width / 2 + ', ' + (Number(yCoordinate.substr(0, yCoordinate.length - 2)) + imgMuffin.height / 2);
 
-  // активация карты - разобраться
+  // активация карты
   mapPinMain.addEventListener('mousedown', leftMouseButtonClickHandler);
 
   var flagMapActivation = false;
@@ -42,6 +41,7 @@
   disactivate(window.filters.selectFilters);
 
   function leftMouseButtonClickHandler(e) {
+
     if (typeof e === 'object' && e.button === 0) {
       if (!flagMapActivation) {
         mapPinMain.addEventListener('click', function () {
@@ -58,8 +58,6 @@
         window.validation.adForm.classList.remove('ad-form--disabled');
       })
 
-      //adForm.classList.add('ad-form--disabled');
-
       xCoordinate = mapPinMain.style.left;
       yCoordinate = mapPinMain.style.top;
       addressInput.value = Number(xCoordinate.substr(0, xCoordinate.length - 2)) + window.util.MUFFIN_WIDTH / 2 + ', ' + (Number(yCoordinate.substr(0, yCoordinate.length - 2)) + window.util.MUFFIN_HEIGHT);
@@ -71,12 +69,9 @@
     successBlock.appendChild(window.offers.renderSuccess());
     successBlock.addEventListener('click', function () {
       var currentSuccess = successBlock.querySelector('.success');
-      //console.log(currentSuccess);
       if (currentSuccess !== null) {
         successBlock.removeChild(currentSuccess);
-
       }
-      //clearPins();
     });
 
     document.addEventListener('keydown', function (event) {
@@ -88,7 +83,6 @@
         }
       }
     });
-
     clearPins();
   };
 
@@ -112,7 +106,6 @@
       if (event.key === 'Escape') {
         event.preventDefault();
         var currentError = errorBlock.querySelector('.error');
-        console.log(currentError);
         if (currentError !== null) {
           errorBlock.removeChild(currentError);
         }
@@ -126,9 +119,7 @@
     evt.preventDefault();
     window.backend.save(new FormData(window.validation.adForm), doIfSuccess, doIfError);
     resetForm();
-    // set disabled
     window.offers.clearOffer();
-    //adForm.classList.add('ad-form--disabled');
     disactivate(fieldsetForms);
     disactivate(window.filters.fieldsetFilters);
     disactivate(window.filters.selectFilters);
@@ -144,21 +135,17 @@
       }
       flagMapActivation = false;
     });
-    console.log('run clearPins');
   };
 
   // блокировка формы после отправки формы
-  //disactivate(fieldsetForms);
-
   resetButton.addEventListener('click', function () {
     resetForm();
     clearPins();
-
   });
 
   var resetForm = function () {
     window.validation.adForm.reset();
-    //cleaning pictures
+    // очистка от фото жилья
     var photoContainer = window.validation.adForm.querySelector('.ad-form__photo-container');
     var photos = window.validation.adForm.querySelectorAll('.ad-form__photo');
     for (var i = 1; i < photos.length; i++) {
@@ -166,13 +153,9 @@
     }
     photos[0].innerHTML = '';
     window.validation.isEmptyAdPhoto = true;
-    // console.log('main: ' + window.validation.isEmptyAdPhoto)
-    // cleaning avatar
+    // очистка от фото аватара
     var currentAvatar = window.validation.avatarPreview.querySelector('.avatarImg');
     currentAvatar.src = 'img/muffin-grey.svg';
-    //соответств комнат
-    window.validation.qtyGuests.value = window.validation.qtyRooms.value; // не выставляется обратно единичка - 1 гость для  одной комнаты при вызове resetForm
-
 
     mapPinMain.style.left = window.dialog.START_X_COORDS;
     mapPinMain.style.top = window.dialog.START_Y_COORDS;
@@ -185,7 +168,6 @@
     disactivate(window.filters.fieldsetFilters);
     disactivate(window.filters.selectFilters);
   }
-
 
   window.main = {
     addressInput: addressInput,
