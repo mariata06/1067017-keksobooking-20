@@ -40,8 +40,8 @@
     if (type === 'any') {
       isFit = true;
     } else {
-      isFit = (houseType === type)
-    };
+      isFit = (houseType === type);
+    }
 
     return isFit;
   };
@@ -68,9 +68,9 @@
           isInRange = true;
         }
         break;
-    };
+    }
     return isInRange;
-  }
+  };
 
   var isSelectedRooms = function (houseRooms, rooms) {
     var isFit = false;
@@ -80,7 +80,7 @@
       isFit = (houseRooms === rooms);
     }
     return isFit;
-  }
+  };
 
   var isSelectedGuests = function (houseGuests, guests) {
     var isFit = false;
@@ -91,7 +91,7 @@
       isFit = (houseGuests === guests);
     }
     return isFit;
-  }
+  };
 
   var isCheckedFeatures = function (houseFeatures, checkedFeatures) {
     var isFit = true;
@@ -99,9 +99,9 @@
       if (houseFeatures.indexOf(el) === -1) {
         isFit = false;
       }
-    })
+    });
     return isFit;
-  }
+  };
 
   // активация фильтров
   // устранение дребезга

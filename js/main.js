@@ -166,7 +166,7 @@
     disactivate(fieldsetForms);
     disactivate(window.filters.fieldsetFilters);
     disactivate(window.filters.selectFilters);
-  }
+  };
 
   window.main = {
     addressInput: addressInput,
