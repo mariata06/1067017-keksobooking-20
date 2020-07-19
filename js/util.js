@@ -33,15 +33,9 @@
   var MAX_PRICE = 1000000;
 
   // универсальная функция определяет случайный элемент
-  var getRandomElement = function (array) {
-    return array[Math.floor(array.length * Math.random())];
+  var getRandomElement = function (elements) {
+    return elements[Math.floor(elements.length * Math.random())];
   };
-
-  // универсальная функция определяет случайное число
-  function getRandomInteger(min, max) {
-    var rand = min + Math.random() * (max + 1 - min);
-    return Math.floor(rand);
-  }
 
   window.util = {
     NUMBER_ADVERT: NUMBER_ADVERT,
@@ -64,7 +58,6 @@
     MIN_PRICE: MIN_PRICE,
     CAPACITY: CAPACITY,
     MAX_PRICE: MAX_PRICE,
-    getRandomElement: getRandomElement,
-    getRandomInteger: getRandomInteger
+    getRandomElement: getRandomElement
   };
 })();

@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+  var PIN_NUMBER_LIMIT = 5;
   var similarListElement = document.querySelector('.map__pins'); // карта с пинами объявлений на карте
   var similarAdvertTemplate = document.querySelector('#pin');
   var newAdvert = similarAdvertTemplate.content.querySelector('.map__pin'); // пин объявления на карте
@@ -67,9 +68,9 @@
     } else {
       offerElement.querySelector('.popup__photo').src = variantOffer.offer.photos[0];
 
-      variantOffer.offer.photos.forEach(function (el) {
+      variantOffer.offer.photos.forEach(function (element) {
         var photo = offerElement.querySelector('.popup__photo').cloneNode(true);
-        photo.src = el;
+        photo.src = element;
         photoBlock.appendChild(photo);
       });
     }
@@ -81,14 +82,14 @@
   var activateMap = function () {
     window.backend.load(function (offers) {
       var fragment = document.createDocumentFragment();
-      window.filters.mapFiltersForm.classList.remove('ad-form--disabled');
+      window.settings.mapFiltersForm.classList.remove('ad-form--disabled');
 
-      offers.forEach(function (el) {
-        data.push(el);
+      offers.forEach(function (element) {
+        data.push(element);
       });
 
       // Вывод на карту не более 5 меток при активации карты
-      var PIN_NUMBER_LIMIT = 5;
+
       for (var i = 0; i < PIN_NUMBER_LIMIT; i++) {
         fragment.appendChild(renderAdvert(offers[i]));
       }
@@ -117,8 +118,8 @@
   };
 
   var clearOffer = function () {
-    Array.from(pinBlock.children).forEach(function (el) {
-      pinBlock.removeChild(el);
+    Array.from(pinBlock.children).forEach(function (element) {
+      pinBlock.removeChild(element);
     });
   };
 
@@ -131,6 +132,7 @@
     renderOffer: renderOffer,
     renderSuccess: renderSuccess,
     renderError: renderError,
-    similarListElement: similarListElement
+    similarListElement: similarListElement,
+    map: map
   };
 })();

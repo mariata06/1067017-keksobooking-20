@@ -2,13 +2,13 @@
 
 (function () {
 
-  var activateOffer = function (alt, offers) {
+  var activateOffer = function (offerName, offers) {
     window.offers.clearOffer();
 
     var fragment = document.createDocumentFragment();
-    Array.from(offers).forEach(function (el) {
-      if (alt === el.offer.title) {
-        fragment.appendChild(window.offers.renderOffer(el));
+    Array.from(offers).forEach(function (element) {
+      if (offerName === element.offer.title) {
+        fragment.appendChild(window.offers.renderOffer(element));
 
         var popup = fragment.querySelector('.popup');
         var popupClose = popup.querySelector('.popup__close');

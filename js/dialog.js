@@ -8,7 +8,7 @@
   var MIN_Y_COORDS = 130;
   var MAX_Y_COORDS = 630;
 
-  window.main.mapPinMain.addEventListener('mousedown', function (evt) {
+  window.main.mapPinMajor.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
 
     var startCoords = {
@@ -33,36 +33,36 @@
         y: moveEvt.clientY
       };
 
-      var currentY = window.main.mapPinMain.offsetTop - shift.y;
+      var currentY = window.main.mapPinMajor.offsetTop - shift.y;
       if (currentY > MAX_Y_COORDS) {
         currentY = MAX_Y_COORDS;
       } else if (currentY < MIN_Y_COORDS) {
         currentY = MIN_Y_COORDS;
       }
 
-      var currentX = window.main.mapPinMain.offsetLeft - shift.x;
+      var currentX = window.main.mapPinMajor.offsetLeft - shift.x;
       if (currentX > MAX_X_COORDS) {
         currentX = MAX_X_COORDS;
       } else if (currentX < MIN_X_COORDS) {
         currentX = MIN_X_COORDS;
       }
 
-      window.main.mapPinMain.style.top = (currentY) + 'px';
-      window.main.mapPinMain.style.left = (currentX) + 'px';
+      window.main.mapPinMajor.style.top = (currentY) + 'px';
+      window.main.mapPinMajor.style.left = (currentX) + 'px';
     };
 
     var onMouseUp = function (upEvt) {
       upEvt.preventDefault();
 
       document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseup', window.main.leftMouseButtonClickHandler(upEvt));
+      document.removeEventListener('mouseup', window.main.onClickLeftMouseButton(upEvt));
 
       if (dragged) {
         var onClickPreventDefault = function (clickEvt) {
           clickEvt.preventDefault();
-          window.main.mapPinMain.removeEventListener('click', onClickPreventDefault);
+          window.main.mapPinMajor.removeEventListener('click', onClickPreventDefault);
         };
-        window.main.mapPinMain.addEventListener('click', onClickPreventDefault);
+        window.main.mapPinMajor.addEventListener('click', onClickPreventDefault);
       }
     };
 

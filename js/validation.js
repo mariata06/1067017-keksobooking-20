@@ -5,8 +5,8 @@
   var titleInput = adForm.querySelector('.title');
   var pricePerNight = adForm.querySelector('.price');
   var typeOfHousing = adForm.querySelector('.housing_type');
-  var qtyRooms = adForm.querySelector('.room_number');
-  var qtyGuests = adForm.querySelector('.capacity');
+  var roomsQuantity = adForm.querySelector('.room_number');
+  var guestsQuantity = adForm.querySelector('.capacity');
   var checkinTime = adForm.querySelector('.timein');
   var checkoutTime = adForm.querySelector('.timeout');
   var avatarPhoto = adForm.querySelector('.ad-form-header__input');
@@ -60,24 +60,24 @@
 
   // валидация полей формы число комнат - число гостей
   var checkGuests = function () {
-    qtyGuests.max = window.util.CAPACITY[qtyRooms.value];
-    if (qtyGuests.value > qtyGuests.max) {
-      qtyGuests.setCustomValidity('Количество гостей должна быть не больше ' + qtyGuests.max);
+    guestsQuantity.max = window.util.CAPACITY[roomsQuantity.value];
+    if (guestsQuantity.value > guestsQuantity.max) {
+      guestsQuantity.setCustomValidity('Количество гостей должна быть не больше ' + guestsQuantity.max);
     } else {
-      qtyGuests.setCustomValidity('');
+      guestsQuantity.setCustomValidity('');
     }
   };
 
-  qtyRooms.addEventListener('change', function () {
+  roomsQuantity.addEventListener('change', function () {
     checkGuests();
   });
 
-  qtyGuests.addEventListener('change', function () {
+  guestsQuantity.addEventListener('change', function () {
     checkGuests();
   });
 
-  qtyGuests.max = window.util.CAPACITY[qtyRooms.value];
-  qtyGuests.value = qtyRooms.value;
+  guestsQuantity.max = window.util.CAPACITY[roomsQuantity.value];
+  guestsQuantity.value = roomsQuantity.value;
 
   // синхронизация полей время въезда - время выезда
   checkinTime.addEventListener('change', function () {
@@ -153,8 +153,6 @@
   window.validation = {
     adForm: adForm,
     avatarPreview: avatarPreview,
-    isEmptyAdPhoto: isEmptyAdPhoto,
-    qtyGuests: qtyGuests,
-    qtyRooms: qtyRooms
+    isEmptyAdPhoto: isEmptyAdPhoto
   };
 })();

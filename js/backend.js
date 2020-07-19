@@ -1,8 +1,9 @@
 'use strict';
 
 (function () {
+  var URL = 'https://javascript.pages.academy/keksobooking/data';
+
   var load = function (onLoad, onError) {
-    var URL = 'https://javascript.pages.academy/keksobooking/data';
     var xhr = new XMLHttpRequest();
 
     xhr.responseType = 'json';
@@ -16,13 +17,19 @@
         onError('Cтатус ответа: ' + xhr.status + ' ' + xhr.statusText);
       }
     });
-    xhr.send();
+    try {
+      xhr.send();
+    }
+    catch (error) {
+      //onError(error);?
+      console.log('возникла ошибка');
+    }
   };
 
   var save = function (data, onLoad, onError) {
-    var URL = document.querySelector('.map__filters').action;
+    var url = document.querySelector('.map__filters').action;
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', URL);
+    xhr.open('POST', url);
 
     xhr.addEventListener('load', function () {
       if (xhr.status === 200) {
@@ -32,7 +39,12 @@
       }
     });
 
-    xhr.send(data);
+    try {
+      xhr.send(data);
+    }
+    catch (error) {
+      console.log('возникла ошибка');
+    }
   };
 
   window.backend = {

@@ -17,7 +17,7 @@
     };
   };
 
-  window.debounce = {
+  window.decorator = {
     debounce: debounce
   };
 })();
