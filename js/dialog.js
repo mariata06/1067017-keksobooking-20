@@ -3,8 +3,8 @@
 (function () {
   var START_X_COORDS = '570px';
   var START_Y_COORDS = '375px';
-  var MIN_X_COORDS = -31;
-  var MAX_X_COORDS = 1168;
+  var MIN_X_COORDS = -33;
+  var MAX_X_COORDS = 1167;
   var MIN_Y_COORDS = 130;
   var MAX_Y_COORDS = 630;
 
@@ -38,6 +38,7 @@
         currentY = MAX_Y_COORDS;
       } else if (currentY < MIN_Y_COORDS) {
         currentY = MIN_Y_COORDS;
+        console.log(currentY);
       }
 
       var currentX = window.main.mapPinMajor.offsetLeft - shift.x;
@@ -63,6 +64,7 @@
           window.main.mapPinMajor.removeEventListener('click', onClickPreventDefault);
         };
         window.main.mapPinMajor.addEventListener('click', onClickPreventDefault);
+
       }
     };
 

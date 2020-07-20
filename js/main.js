@@ -2,6 +2,7 @@
 
 (function () {
 
+  var PIN_ARROW_HEIGHT = 22;
   var mapPinMajor = document.querySelector('.map__pin--main');
   var addressInput = window.validation.adForm.querySelector('.address');
   var successBlock = document.querySelector('.success__block');
@@ -12,15 +13,31 @@
   // блокировка формы
   window.validation.adForm.classList.add('ad-form--disabled');
 
+  var setAddress = function (isRound) {
+    var xCoordinate = mapPinMajor.style.left;
+    var yCoordinate = mapPinMajor.style.top;
+
+    if (isRound) {
+      addressInput.value = Math.round((Number(xCoordinate.substr(0, xCoordinate.length - 2)) + mapPinMajor.clientWidth / 2)) + ', ' + Math.round((Number(yCoordinate.substr(0, yCoordinate.length - 2)) + mapPinMajor.clientHeight / 2));
+    } else {
+      addressInput.value = Math.round((Number(xCoordinate.substr(0, xCoordinate.length - 2)) + mapPinMajor.clientWidth / 2)) + ', ' + Math.round((Number(yCoordinate.substr(0, yCoordinate.length - 2)) /* + mapPinMajor.clientHeight + PIN_ARROW_HEIGHT*/ ));
+    }
+
+    addressInput.setAttribute('readonly', true);
+  }
+
   // координаты большой круглой метки после открытия страницы, но до активации карты
+  setAddress(true);
+  /*
   var xCoordinate = mapPinMajor.style.left;
   var yCoordinate = mapPinMajor.style.top;
   //var imgMuffin = document.querySelector('.map__pin--main').children[0];
   //addressInput.value = Number(xCoordinate.substr(0, xCoordinate.length - 2)) + imgMuffin.width / 2 + ', ' + (Number(yCoordinate.substr(0, yCoordinate.length - 2)) + imgMuffin.height / 2);
   addressInput.value = Math.round((Number(xCoordinate.substr(0, xCoordinate.length - 2)) + mapPinMajor.clientWidth / 2)) + ', ' + Math.round((Number(yCoordinate.substr(0, yCoordinate.length - 2)) + mapPinMajor.clientHeight / 2));
-  console.log(mapPinMajor.style);
-  console.log(mapPinMajor.clientWidth);
-
+  //console.log(addressInput.value);
+  //console.log(mapPinMajor.style);
+  //console.log(mapPinMajor.clientWidth);
+  */
   // активация карты
   //mapPinMajor.addEventListener('mousedown', onClickLeftMouseButton);
 
@@ -54,6 +71,7 @@
         });
       }
 
+
       mapPinMajor.addEventListener('mousedown', function () {
         activateElementsOfForm(fieldsetForms);
         activateElementsOfForm(window.settings.fieldsetFilters);
@@ -61,38 +79,57 @@
         window.validation.adForm.classList.remove('ad-form--disabled');
       });
 
-      xCoordinate = mapPinMajor.style.left;
-      yCoordinate = mapPinMajor.style.top;
-      addressInput.value = Number(xCoordinate.substr(0, xCoordinate.length - 2)) + window.util.MUFFIN_WIDTH / 2 + ', ' + (Number(yCoordinate.substr(0, yCoordinate.length - 2)) + window.util.MUFFIN_HEIGHT);
-      addressInput.setAttribute('readonly', true);
+      setAddress(false);
+      /*
+            xCoordinate = mapPinMajor.style.left;
+            yCoordinate = mapPinMajor.style.top;
+            //addressInput.value = Number(xCoordinate.substr(0, xCoordinate.length - 2)) + window.util.MUFFIN_WIDTH / 2 + ', ' + (Number(yCoordinate.substr(0, yCoordinate.length - 2)) + window.util.MUFFIN_HEIGHT);
+            addressInput.value = Math.round((Number(xCoordinate.substr(0, xCoordinate.length - 2)) + mapPinMajor.clientWidth / 2)) + ', ' + Math.round((Number(yCoordinate.substr(0, yCoordinate.length - 2))));
+            //console.log(Number(yCoordinate.substr(0, yCoordinate.length - 2)));
+            //console.log(mapPinMajor.clientHeight);
+            addressInput.setAttribute('readonly', true);
+      */
     }
 
     //e.removeEventListener('click', onClickLeftMouseButton);
   }
 
-
+  mapPinMajor.addEventListener('mousemove', function (evt) {
+    setAddress(false);
+    /*
+    xCoordinate = mapPinMajor.style.left;
+    yCoordinate = mapPinMajor.style.top;
+    //addressInput.value = Number(xCoordinate.substr(0, xCoordinate.length - 2)) + window.util.MUFFIN_WIDTH / 2 + ', ' + (Number(yCoordinate.substr(0, yCoordinate.length - 2)) + window.util.MUFFIN_HEIGHT);
+    addressInput.value = Math.round((Number(xCoordinate.substr(0, xCoordinate.length - 2)) + mapPinMajor.clientWidth / 2)) + ', ' + Math.round((Number(yCoordinate.substr(0, yCoordinate.length - 2)) ));
+    //console.log(Number(yCoordinate.substr(0, yCoordinate.length - 2)));
+    //console.log(mapPinMajor.clientHeight);
+    addressInput.setAttribute('readonly', true);
+    */
+  });
 
   mapPinMajor.addEventListener('keydown', function (evt) {
     if (evt.key === 'Enter') {
       if (!flagMapActivation) {
 
-          window.offers.activateMap();
+        window.offers.activateMap();
 
-          flagMapActivation = true;
+        flagMapActivation = true;
 
       }
 
+      activateElementsOfForm(fieldsetForms);
+      activateElementsOfForm(window.settings.fieldsetFilters);
+      activateElementsOfForm(window.settings.selectFilters);
+      window.validation.adForm.classList.remove('ad-form--disabled');
 
-        activateElementsOfForm(fieldsetForms);
-        activateElementsOfForm(window.settings.fieldsetFilters);
-        activateElementsOfForm(window.settings.selectFilters);
-        window.validation.adForm.classList.remove('ad-form--disabled');
-
-
+      setAddress(false);
+      /*
       xCoordinate = mapPinMajor.style.left;
       yCoordinate = mapPinMajor.style.top;
-      addressInput.value = Number(xCoordinate.substr(0, xCoordinate.length - 2)) + window.util.MUFFIN_WIDTH / 2 + ', ' + (Number(yCoordinate.substr(0, yCoordinate.length - 2)) + window.util.MUFFIN_HEIGHT);
+      //addressInput.value = Number(xCoordinate.substr(0, xCoordinate.length - 2)) + window.util.MUFFIN_WIDTH / 2 + ', ' + (Number(yCoordinate.substr(0, yCoordinate.length - 2)) + window.util.MUFFIN_HEIGHT);
+      addressInput.value = Math.round((Number(xCoordinate.substr(0, xCoordinate.length - 2)) + mapPinMajor.clientWidth / 2)) + ', ' + Math.round(Number(yCoordinate.substr(0, yCoordinate.length - 2)));
       addressInput.setAttribute('readonly', true);
+      */
     }
   })
 
@@ -189,17 +226,22 @@
 
     mapPinMajor.style.left = window.dialog.START_X_COORDS;
     mapPinMajor.style.top = window.dialog.START_Y_COORDS;
-    //addressInput.value = Number(mapPinMajor.style.left.substr(0, mapPinMajor.style.left.length - 2)) + window.util.MUFFIN_WIDTH / 2 + ', ' + (Number(mapPinMajor.style.top.substr(0, mapPinMajor.style.top.length - 2)) + window.util.MUFFIN_HEIGHT);
-    addressInput.value = Math.round((Number(xCoordinate.substr(0, xCoordinate.length - 2)) + mapPinMajor.clientWidth / 2)) + ', ' + Math.round((Number(yCoordinate.substr(0, yCoordinate.length - 2)) + mapPinMajor.clientHeight / 2));
+    setAddress(true);
+    /*
+        xCoordinate = mapPinMajor.style.left;
+        yCoordinate = mapPinMajor.style.top;
+        //addressInput.value = Number(mapPinMajor.style.left.substr(0, mapPinMajor.style.left.length - 2)) + window.util.MUFFIN_WIDTH / 2 + ', ' + (Number(mapPinMajor.style.top.substr(0, mapPinMajor.style.top.length - 2)) + window.util.MUFFIN_HEIGHT);
+        addressInput.value = Math.round((Number(xCoordinate.substr(0, xCoordinate.length - 2)) + mapPinMajor.clientWidth / 2)) + ', ' + Math.round((Number(yCoordinate.substr(0, yCoordinate.length - 2)) + mapPinMajor.clientHeight / 2));
 
-    addressInput.setAttribute('readonly', true);
-
+        addressInput.setAttribute('readonly', true);
+    */
     window.validation.adForm.classList.add('ad-form--disabled');
     window.settings.mapFiltersForm.classList.add('ad-form--disabled');
     window.offers.map.classList.add('map--faded');
     disactivate(fieldsetForms);
     disactivate(window.settings.fieldsetFilters);
     disactivate(window.settings.selectFilters);
+
   };
 
   window.main = {
