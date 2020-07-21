@@ -50,13 +50,19 @@
 
       window.main.mapPinMajor.style.top = (currentY) + 'px';
       window.main.mapPinMajor.style.left = (currentX) + 'px';
+
+      //не влияет ни на что:
+      //window.main.mapPinMajor.removeEventListener('mousedown', window.main.actiFunc);
     };
 
     var onMouseUp = function (upEvt) {
       upEvt.preventDefault();
 
       document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseup', window.main.onClickLeftMouseButton(upEvt));
+      document.removeEventListener('mousedown', window.main.onMouseDown(upEvt));
+      //нужно?
+      document.removeEventListener('mouseup', onMouseUp);
+
 
       if (dragged) {
         var onClickPreventDefault = function (clickEvt) {
@@ -66,11 +72,18 @@
         window.main.mapPinMajor.addEventListener('click', onClickPreventDefault);
 
       }
+      //всё ломает:
+      //window.main.mapPinMajor.removeEventListener('mousedown', window.main.actiFunc);
     };
 
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
 
+    //нужно?
+    document.addEventListener('mousedown', window.main.onMouseDown());
+
+    //всё ломает тоже:
+    //window.main.mapPinMajor.removeEventListener('mousedown', window.main.actiFunc);
   });
 
   window.dialog = {
