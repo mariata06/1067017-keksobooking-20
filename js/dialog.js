@@ -11,17 +11,15 @@
   window.main.mapPinMajor.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
 
+    window.main.onMouseDown(evt);
+
     var startCoords = {
       x: evt.clientX,
       y: evt.clientY
     };
 
-    var dragged = false;
-
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
-
-      dragged = true;
 
       var shift = {
         x: startCoords.x - moveEvt.clientX,
@@ -38,7 +36,6 @@
         currentY = MAX_Y_COORDS;
       } else if (currentY < MIN_Y_COORDS) {
         currentY = MIN_Y_COORDS;
-        console.log(currentY);
       }
 
       var currentX = window.main.mapPinMajor.offsetLeft - shift.x;
@@ -50,40 +47,18 @@
 
       window.main.mapPinMajor.style.top = (currentY) + 'px';
       window.main.mapPinMajor.style.left = (currentX) + 'px';
-
-      //не влияет ни на что:
-      //window.main.mapPinMajor.removeEventListener('mousedown', window.main.actiFunc);
     };
 
     var onMouseUp = function (upEvt) {
       upEvt.preventDefault();
 
-      document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mousedown', window.main.onMouseDown(upEvt));
-      //нужно?
+      window.offers.map.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mousedown', window.main.onMouseDown);
       document.removeEventListener('mouseup', onMouseUp);
-
-
-      if (dragged) {
-        var onClickPreventDefault = function (clickEvt) {
-          clickEvt.preventDefault();
-          window.main.mapPinMajor.removeEventListener('click', onClickPreventDefault);
-        };
-        window.main.mapPinMajor.addEventListener('click', onClickPreventDefault);
-
-      }
-      //всё ломает:
-      //window.main.mapPinMajor.removeEventListener('mousedown', window.main.actiFunc);
     };
 
-    document.addEventListener('mousemove', onMouseMove);
+    window.offers.map.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
-
-    //нужно?
-    document.addEventListener('mousedown', window.main.onMouseDown());
-
-    //всё ломает тоже:
-    //window.main.mapPinMajor.removeEventListener('mousedown', window.main.actiFunc);
   });
 
   window.dialog = {

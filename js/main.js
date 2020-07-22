@@ -1,8 +1,6 @@
 'use strict';
 
 (function () {
-
-
   var mapPinMajor = document.querySelector('.map__pin--main');
   var addressInput = window.validation.adForm.querySelector('.address');
   var successBlock = document.querySelector('.success__block');
@@ -18,19 +16,16 @@
     var yCoordinate = mapPinMajor.style.top;
 
     if (isRound) {
-      addressInput.value = Math.round((Number(xCoordinate.substr(0, xCoordinate.length - 2)) + mapPinMajor.clientWidth / 2)) + ', ' + Math.round((Number(yCoordinate.substr(0, yCoordinate.length - 2)) + mapPinMajor.clientHeight / 2));
+      addressInput.value = Math.round((Number(xCoordinate.substr(0, xCoordinate.length - 2)) + mapPinMajor.clientWidth / 2)) + ', ' + Math.round(Number(yCoordinate.substr(0, yCoordinate.length - 2)) + mapPinMajor.clientHeight / 2);
     } else {
-      addressInput.value = Math.round((Number(xCoordinate.substr(0, xCoordinate.length - 2)) + mapPinMajor.clientWidth / 2)) + ', ' + Math.round((Number(yCoordinate.substr(0, yCoordinate.length - 2)) /* + mapPinMajor.clientHeight + PIN_ARROW_HEIGHT*/ ));
+      addressInput.value = Math.round((Number(xCoordinate.substr(0, xCoordinate.length - 2)) + mapPinMajor.clientWidth / 2)) + ', ' + Math.round(Number(yCoordinate.substr(0, yCoordinate.length - 2)));
     }
 
     addressInput.setAttribute('readonly', true);
-  }
+  };
 
   // координаты большой круглой метки после открытия страницы, но до активации карты
   setAddress(true);
-
-  // активация карты
-  //mapPinMajor.addEventListener('mousedown', onMouseDown);
 
   var flagMapActivation = false;
 
@@ -51,47 +46,25 @@
   disactivate(window.settings.fieldsetFilters);
   disactivate(window.settings.selectFilters);
 
-  var actiFunc = function () {
-    window.offers.activateMap();
-    flagMapActivation = true;
-    //ещё одно рабочее место для блокировки доп.подгрузки data
-    //mapPinMajor.removeEventListener('mousedown', actiFunc);
-  }
-
   function onMouseDown(e) {
     if (typeof e === 'object' && e.button === 0) {
       if (!flagMapActivation) {
-        console.log('проверка флага')
-        mapPinMajor.addEventListener('mousedown', actiFunc);
+        window.offers.activateMap();
+        flagMapActivation = true;
       }
 
-      mapPinMajor.addEventListener('mousedown', function () {
-        activateElementsOfForm(fieldsetForms);
-        activateElementsOfForm(window.settings.fieldsetFilters);
-        activateElementsOfForm(window.settings.selectFilters);
-        window.validation.adForm.classList.remove('ad-form--disabled');
-      });
+      activateElementsOfForm(fieldsetForms);
+      activateElementsOfForm(window.settings.fieldsetFilters);
+      activateElementsOfForm(window.settings.selectFilters);
+      window.validation.adForm.classList.remove('ad-form--disabled');
 
       setAddress(false);
-
     }
-    //не помогло (попытка отписки от активации карты по mousedown) ломает всё
-    //mapPinMajor.removeEventListener('mousedown', actiFunc);
   }
 
-  mapPinMajor.addEventListener('mousemove', function (evt) {
+  mapPinMajor.addEventListener('mousemove', function () {
     setAddress(false);
   });
-
-window.offers.map.addEventListener('mouseup', function(){
-  //что тут писать?
-  mapPinMajor.removeEventListener('mousedown', actiFunc);
-})
-
-window.offers.map.addEventListener('mousemove', function(){
-  //что тут писать?
-  mapPinMajor.removeEventListener('mousedown', actiFunc);
-})
 
   mapPinMajor.addEventListener('keydown', function (evt) {
     if (evt.key === 'Enter') {
@@ -107,7 +80,7 @@ window.offers.map.addEventListener('mousemove', function(){
 
       setAddress(false);
     }
-  })
+  });
 
   var doIfSuccess = function () {
     successBlock.appendChild(window.offers.renderSuccess());
@@ -210,15 +183,11 @@ window.offers.map.addEventListener('mousemove', function(){
     disactivate(fieldsetForms);
     disactivate(window.settings.fieldsetFilters);
     disactivate(window.settings.selectFilters);
-
-    //не устраянет доп.подгрузку data:
-    //mapPinMajor.removeEventListener('mousedown', actiFunc);
   };
 
   window.main = {
     addressInput: addressInput,
     onMouseDown: onMouseDown,
-    mapPinMajor: mapPinMajor,
-    actiFunc: actiFunc
+    mapPinMajor: mapPinMajor
   };
 })();

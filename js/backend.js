@@ -17,12 +17,11 @@
         onError('Cтатус ответа: ' + xhr.status + ' ' + xhr.statusText);
       }
     });
+
     try {
       xhr.send();
-    }
-    catch (error) {
-      //onError(error);?
-      console.log('возникла ошибка');
+    } catch (error) {
+      onError('возникла ошибка: ' + error);
     }
   };
 
@@ -41,9 +40,8 @@
 
     try {
       xhr.send(data);
-    }
-    catch (error) {
-      console.log('возникла ошибка');
+    } catch (error) {
+      onError('возникла ошибка: ' + error);
     }
   };
 

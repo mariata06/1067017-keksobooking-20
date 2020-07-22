@@ -115,9 +115,6 @@
 
       map.classList.remove('map--faded');
     }, function () {});
-
-    //рабочее место для устранения доп.подгрузки data:
-    //window.main.mapPinMajor.removeEventListener('mousedown', window.main.actiFunc);
   };
 
   var clearOffer = function () {
