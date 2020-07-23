@@ -11,7 +11,7 @@
   window.main.mapPinMajor.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
 
-    window.main.onMouseDown(evt);
+    window.main.startMap(evt);
 
     var startCoords = {
       x: evt.clientX,
@@ -53,7 +53,7 @@
       upEvt.preventDefault();
 
       window.offers.map.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mousedown', window.main.onMouseDown);
+      document.removeEventListener('mousedown', window.main.startMap);
       document.removeEventListener('mouseup', onMouseUp);
     };
 

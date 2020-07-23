@@ -2,7 +2,7 @@
 
 (function () {
   var PIN_NUMBER_LIMIT = 5;
-  var similarListElement = document.querySelector('.map__pins'); // карта с пинами объявлений на карте
+  var similarListPins = document.querySelector('.map__pins'); // карта с пинами объявлений на карте
   var similarAdvertTemplate = document.querySelector('#pin');
   var newAdvert = similarAdvertTemplate.content.querySelector('.map__pin'); // пин объявления на карте
   var map = document.querySelector('.map');
@@ -16,67 +16,67 @@
   var newError = errorMessageTemplate.content.querySelector('.error');
 
   var renderAdvert = function (variantStorage) {
-    var advertElement = newAdvert.cloneNode(true);
-    advertElement.querySelector('.map__pin--image').src = variantStorage.author.avatar;
-    advertElement.querySelector('.map__pin--image').alt = variantStorage.offer.title;
-    advertElement.style.left = variantStorage.location.x - window.util.PIN_X + 'px';
-    advertElement.style.top = variantStorage.location.y - window.util.PIN_Y + 'px';
+    var advertisement = newAdvert.cloneNode(true);
+    advertisement.querySelector('.map__pin--image').src = variantStorage.author.avatar;
+    advertisement.querySelector('.map__pin--image').alt = variantStorage.offer.title;
+    advertisement.style.left = variantStorage.location.x - window.util.PIN_X + 'px';
+    advertisement.style.top = variantStorage.location.y - window.util.PIN_Y + 'px';
 
-    return advertElement;
+    return advertisement;
   };
 
   var renderSuccess = function () {
-    var successElement = newSuccess.cloneNode(true);
-    return successElement;
+    var successMessage = newSuccess.cloneNode(true);
+    return successMessage;
   };
 
   var renderError = function () {
-    var errorElement = newError.cloneNode(true);
-    return errorElement;
+    var errorMessage = newError.cloneNode(true);
+    return errorMessage;
   };
 
   var renderOffer = function (variantOffer) {
-    var offerElement = newOffer.cloneNode(true);
-    offerElement.querySelector('.popup__title').textContent = variantOffer.offer.title;
-    offerElement.querySelector('.popup__text--address').textContent = variantOffer.offer.address;
-    offerElement.querySelector('.popup__text--price').textContent = variantOffer.offer.price + ' р/ночь';
-    offerElement.querySelector('.popup__type').textContent = variantOffer.offer.type;
+    var offerDescription = newOffer.cloneNode(true);
+    offerDescription.querySelector('.popup__title').textContent = variantOffer.offer.title;
+    offerDescription.querySelector('.popup__text--address').textContent = variantOffer.offer.address;
+    offerDescription.querySelector('.popup__text--price').textContent = variantOffer.offer.price + ' р/ночь';
+    offerDescription.querySelector('.popup__type').textContent = variantOffer.offer.type;
 
     if (variantOffer.offer.rooms === 0 && variantOffer.offer.guests === 0) {
-      offerElement.querySelector('.popup__text--capacity').classList.add('hidden');
+      offerDescription.querySelector('.popup__text--capacity').classList.add('hidden');
     } else {
-      offerElement.querySelector('.popup__text--capacity').textContent = variantOffer.offer.rooms + ' комнаты для ' + variantOffer.offer.guests + ' гостей';
+      offerDescription.querySelector('.popup__text--capacity').textContent = variantOffer.offer.rooms + ' комнаты для ' + variantOffer.offer.guests + ' гостей';
     }
 
     if (variantOffer.offer.checkin === 0 && variantOffer.offer.checkout === 0) {
-      offerElement.querySelector('.popup__text--time').classList.add('hidden');
+      offerDescription.querySelector('.popup__text--time').classList.add('hidden');
     } else {
-      offerElement.querySelector('.popup__text--time').textContent = 'заезд после ' + variantOffer.offer.checkin + ' выезд после ' + variantOffer.offer.checkout;
+      offerDescription.querySelector('.popup__text--time').textContent = 'заезд после ' + variantOffer.offer.checkin + ' выезд после ' + variantOffer.offer.checkout;
     }
 
     if (variantOffer.offer.features.length === 0) {
-      offerElement.querySelector('.popup__features').classList.add('hidden');
+      offerDescription.querySelector('.popup__features').classList.add('hidden');
     } else {
-      offerElement.querySelector('.popup__features').textContent = variantOffer.offer.features.join(' ');
+      offerDescription.querySelector('.popup__features').textContent = variantOffer.offer.features.join(' ');
     }
 
-    offerElement.querySelector('.popup__description').textContent = variantOffer.offer.description;
+    offerDescription.querySelector('.popup__description').textContent = variantOffer.offer.description;
 
-    var photoBlock = offerElement.querySelector('.popup__photos');
+    var photoBlock = offerDescription.querySelector('.popup__photos');
     if (variantOffer.offer.photos.length === 0) {
       photoBlock.classList.add('hidden');
     } else {
-      offerElement.querySelector('.popup__photo').src = variantOffer.offer.photos[0];
+      offerDescription.querySelector('.popup__photo').src = variantOffer.offer.photos[0];
 
       variantOffer.offer.photos.forEach(function (element) {
-        var photo = offerElement.querySelector('.popup__photo').cloneNode(true);
+        var photo = offerDescription.querySelector('.popup__photo').cloneNode(true);
         photo.src = element;
         photoBlock.appendChild(photo);
       });
     }
 
-    offerElement.querySelector('.popup__avatar').src = variantOffer.author.avatar;
-    return offerElement;
+    offerDescription.querySelector('.popup__avatar').src = variantOffer.author.avatar;
+    return offerDescription;
   };
 
   var activateMap = function () {
@@ -89,20 +89,19 @@
       });
 
       // Вывод на карту не более 5 меток при активации карты
-
       for (var i = 0; i < PIN_NUMBER_LIMIT; i++) {
         fragment.appendChild(renderAdvert(offers[i]));
       }
-      similarListElement.appendChild(fragment);
+      similarListPins.appendChild(fragment);
 
       // делегирование
-      similarListElement.addEventListener('click', function (event) {
+      similarListPins.addEventListener('click', function (event) {
         if (event.target.className !== 'map__overlay') {
           window.card.activateOffer(event.target.alt, offers);
         }
       });
 
-      similarListElement.addEventListener('keydown', function (event) {
+      similarListPins.addEventListener('keydown', function (event) {
         if (event.key === 'Enter') {
           event.preventDefault();
           window.card.activateOffer(event.target.querySelector('.map__pin--image').alt, offers);
@@ -114,7 +113,7 @@
       });
 
       map.classList.remove('map--faded');
-    }, function () {});
+    }, window.main.doIfError);
   };
 
   var clearOffer = function () {
@@ -132,7 +131,7 @@
     renderOffer: renderOffer,
     renderSuccess: renderSuccess,
     renderError: renderError,
-    similarListElement: similarListElement,
+    similarListPins: similarListPins,
     map: map
   };
 })();

@@ -128,7 +128,6 @@
       ) {
         filteredOffers.push(element);
       }
-
     });
 
     var fragment = document.createDocumentFragment();
@@ -139,14 +138,14 @@
       }
       fragment.appendChild(window.offers.renderAdvert(filteredOffers[i]));
     }
-    window.offers.similarListElement.appendChild(fragment);
+    window.offers.similarListPins.appendChild(fragment);
 
     // делегирование
-    window.offers.similarListElement.addEventListener('click', function (event) {
+    window.offers.similarListPins.addEventListener('click', function (event) {
       window.card.activateOffer(event.target.alt, filteredOffers);
     });
 
-    window.offers.similarListElement.addEventListener('keydown', function (event) {
+    window.offers.similarListPins.addEventListener('keydown', function (event) {
       if (event.key === 'Enter') {
         window.card.activateOffer(event.target.children[0].alt, filteredOffers);
       }

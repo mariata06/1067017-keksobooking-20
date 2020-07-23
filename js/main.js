@@ -46,7 +46,7 @@
   disactivate(window.settings.fieldsetFilters);
   disactivate(window.settings.selectFilters);
 
-  function onMouseDown(e) {
+  function startMap(e) {
     if (typeof e === 'object' && e.button === 0) {
       if (!flagMapActivation) {
         window.offers.activateMap();
@@ -145,9 +145,9 @@
   });
 
   var clearPins = function () {
-    Array.from(window.offers.similarListElement.children).forEach(function (el) {
+    Array.from(window.offers.similarListPins.children).forEach(function (el) {
       if (el.className.indexOf('map__pin--offer') !== -1) {
-        window.offers.similarListElement.removeChild(el);
+        window.offers.similarListPins.removeChild(el);
       }
       flagMapActivation = false;
     });
@@ -157,6 +157,7 @@
   resetButton.addEventListener('click', function () {
     resetForm();
     clearPins();
+
   });
 
   var resetForm = function () {
@@ -183,11 +184,14 @@
     disactivate(fieldsetForms);
     disactivate(window.settings.fieldsetFilters);
     disactivate(window.settings.selectFilters);
+
+    window.settings.mapFiltersForm.reset();
   };
 
   window.main = {
     addressInput: addressInput,
-    onMouseDown: onMouseDown,
-    mapPinMajor: mapPinMajor
+    startMap: startMap,
+    mapPinMajor: mapPinMajor,
+    doIfError: doIfError
   };
 })();
