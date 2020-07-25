@@ -25,7 +25,8 @@
   };
 
   // координаты большой круглой метки после открытия страницы, но до активации карты
-  setAddress(true);
+  var isRoundMuffin = true;
+  setAddress(isRoundMuffin);
 
   var flagMapActivation = false;
 
@@ -58,12 +59,13 @@
       activateElementsOfForm(window.settings.selectFilters);
       window.validation.adForm.classList.remove('ad-form--disabled');
 
-      setAddress(false);
+      isRoundMuffin = false;
+      setAddress(isRoundMuffin);
     }
   }
 
   mapPinMajor.addEventListener('mousemove', function () {
-    setAddress(false);
+    setAddress(isRoundMuffin);
   });
 
   mapPinMajor.addEventListener('keydown', function (evt) {
@@ -78,7 +80,8 @@
       activateElementsOfForm(window.settings.selectFilters);
       window.validation.adForm.classList.remove('ad-form--disabled');
 
-      setAddress(false);
+      isRoundMuffin = false;
+      setAddress(isRoundMuffin);
     }
   });
 

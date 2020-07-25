@@ -22,12 +22,15 @@
 
   var isEmptyAdPhoto = true;
 
+  // выставление минимальной цены при загрузке страницы
+  pricePerNight.min = window.util.MIN_PRICE[typeOfHousing.value];
+  pricePerNight.max = window.util.MAX_PRICE;
+  pricePerNight.placeholder = window.util.MIN_PRICE[typeOfHousing.value];
+
   // опеределяет мин цену за ночь по типу жилья
   typeOfHousing.addEventListener('change', function () {
     pricePerNight.min = window.util.MIN_PRICE[typeOfHousing.value];
   });
-
-  pricePerNight.max = window.util.MAX_PRICE;
 
   // валидация поля формы заголовок
   titleInput.addEventListener('invalid', function () {
@@ -132,11 +135,14 @@
 
   function handleFiles(file, divAdFormPhoto, isAvatar) {
     var img = document.createElement('img');
+    /*
     if (isAvatar) {
       img.classList.add('avatarImg');
     } else {
       img.classList.add('housingImg');
     }
+    */
+    isAvatar ? img.classList.add('avatarImg') : img.classList.add('housingImg');
 
     img.height = divAdFormPhoto.offsetHeight;
     img.width = divAdFormPhoto.offsetWidth;

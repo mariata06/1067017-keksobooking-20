@@ -104,7 +104,10 @@
       similarListPins.addEventListener('keydown', function (event) {
         if (event.key === 'Enter') {
           event.preventDefault();
-          window.card.activateOffer(event.target.querySelector('.map__pin--image').alt, offers);
+          // проверка, что не маффин
+          if (event.target.querySelector('.map__pin--image') !== null) {
+            window.card.activateOffer(event.target.querySelector('.map__pin--image').alt, offers);
+          }
         }
 
         if (event.key === 'Escape') {
