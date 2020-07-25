@@ -7,6 +7,7 @@
   var MAX_X_COORDS = 1167;
   var MIN_Y_COORDS = 130;
   var MAX_Y_COORDS = 630;
+  // var MAX_Y_COORDS = 575;
 
   window.main.mapPinMajor.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
@@ -32,10 +33,10 @@
       };
 
       var currentY = window.main.mapPinMajor.offsetTop - shift.y;
-      if (currentY > MAX_Y_COORDS) {
-        currentY = MAX_Y_COORDS;
-      } else if (currentY < MIN_Y_COORDS) {
-        currentY = MIN_Y_COORDS;
+      if (currentY > MAX_Y_COORDS - window.main.mapPinMajor.clientHeight - 22) {
+        currentY = MAX_Y_COORDS - window.main.mapPinMajor.clientHeight - 22;
+      } else if (currentY < MIN_Y_COORDS - window.main.mapPinMajor.clientHeight - 22) {
+        currentY = MIN_Y_COORDS - window.main.mapPinMajor.clientHeight - 22;
       }
 
       var currentX = window.main.mapPinMajor.offsetLeft - shift.x;

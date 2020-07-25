@@ -18,7 +18,9 @@
     if (isRound) {
       addressInput.value = Math.round((Number(xCoordinate.substr(0, xCoordinate.length - 2)) + mapPinMajor.clientWidth / 2)) + ', ' + Math.round(Number(yCoordinate.substr(0, yCoordinate.length - 2)) + mapPinMajor.clientHeight / 2);
     } else {
-      addressInput.value = Math.round((Number(xCoordinate.substr(0, xCoordinate.length - 2)) + mapPinMajor.clientWidth / 2)) + ', ' + Math.round(Number(yCoordinate.substr(0, yCoordinate.length - 2)));
+      // addressInput.value = Math.round((Number(xCoordinate.substr(0, xCoordinate.length - 2)) + mapPinMajor.clientWidth / 2)) + ', ' + Math.round(Number(yCoordinate.substr(0, yCoordinate.length - 2)) + mapPinMajor.clientHeight / 2 + 22);
+      addressInput.value = Math.round((Number(xCoordinate.substr(0, xCoordinate.length - 2)) + mapPinMajor.clientWidth / 2)) + ', ' + Math.round(Number(yCoordinate.substr(0, yCoordinate.length - 2)) + mapPinMajor.clientHeight + 22);
+      // console.log(mapPinMajor.clientHeight);
     }
 
     addressInput.setAttribute('readonly', true);
