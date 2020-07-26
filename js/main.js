@@ -39,15 +39,15 @@
     });
   };
 
-  var disactivate = function (tags) {
+  var deactivate = function (tags) {
     Array.from(tags).forEach(function (el) {
       el.setAttribute('disabled', true);
     });
   };
 
-  disactivate(fieldsetForms);
-  disactivate(window.settings.fieldsetFilters);
-  disactivate(window.settings.selectFilters);
+  deactivate(fieldsetForms);
+  deactivate(window.settings.fieldsetFilters);
+  deactivate(window.settings.selectFilters);
 
   function startMap(e) {
     if (typeof e === 'object' && e.button === 0) {
@@ -70,7 +70,7 @@
     setAddress(isRoundMuffin);
   });
 
-  mapPinMajor.addEventListener('keydown', function (evt) {
+  var keydownActivation = function (evt) {
     if (evt.key === 'Enter') {
       if (!flagMapActivation) {
         window.offers.activateMap();
@@ -85,7 +85,9 @@
       isRoundMuffin = false;
       setAddress(isRoundMuffin);
     }
-  });
+  };
+
+  mapPinMajor.addEventListener('keydown', keydownActivation);
 
   var doIfSuccess = function () {
     successBlock.appendChild(window.offers.renderSuccess());
@@ -141,9 +143,9 @@
     window.backend.save(new FormData(window.validation.adForm), doIfSuccess, doIfError);
     resetForm();
     window.offers.clearOffer();
-    disactivate(fieldsetForms);
-    disactivate(window.settings.fieldsetFilters);
-    disactivate(window.settings.selectFilters);
+    deactivate(fieldsetForms);
+    deactivate(window.settings.fieldsetFilters);
+    deactivate(window.settings.selectFilters);
     clearPins();
     window.validation.adForm.classList.add('ad-form--disabled');
     window.settings.mapFiltersForm.classList.add('ad-form--disabled');
@@ -186,9 +188,9 @@
     window.validation.adForm.classList.add('ad-form--disabled');
     window.settings.mapFiltersForm.classList.add('ad-form--disabled');
     window.offers.map.classList.add('map--faded');
-    disactivate(fieldsetForms);
-    disactivate(window.settings.fieldsetFilters);
-    disactivate(window.settings.selectFilters);
+    deactivate(fieldsetForms);
+    deactivate(window.settings.fieldsetFilters);
+    deactivate(window.settings.selectFilters);
 
     window.settings.mapFiltersForm.reset();
   };
@@ -197,6 +199,7 @@
     addressInput: addressInput,
     startMap: startMap,
     mapPinMajor: mapPinMajor,
-    doIfError: doIfError
+    doIfError: doIfError,
+    keydownActivation: keydownActivation
   };
 })();

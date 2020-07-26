@@ -117,6 +117,9 @@
 
       map.classList.remove('map--faded');
     }, window.main.doIfError);
+
+    // так?
+    window.main.mapPinMajor.removeEventListener('keydown', window.main.keydownActivation);
   };
 
   var clearOffer = function () {
