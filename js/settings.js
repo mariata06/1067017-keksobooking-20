@@ -36,16 +36,7 @@
   });
 
   var isSelectedType = function (houseType, type) {
-    /*
-    var isFit = false;
 
-        if (type === 'any') {
-          isFit = true;
-        } else {
-          isFit = (houseType === type);
-        }
-    return isFit;
-    */
     return (type === 'any') ? true : (houseType === type);
   };
 
@@ -76,29 +67,12 @@
   };
 
   var isSelectedRooms = function (houseRooms, rooms) {
-    /*
-    var isFit = false;
 
-    if (rooms === 'any') {
-      isFit = true;
-    } else {
-      isFit = (houseRooms === rooms);
-    }
-    return isFit;
-    */
     return (rooms === 'any') ? true : (houseRooms === rooms);
   };
 
   var isSelectedGuests = function (houseGuests, guests) {
-    /*
-    var isFit = false;
-    if (guests === 'any') {
-      isFit = true;
-    } else {
-      isFit = (houseGuests === guests);
-    }
-    return isFit;
-    */
+
     return (guests === 'any') ? true : (houseGuests === guests);
   };
 

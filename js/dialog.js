@@ -7,7 +7,7 @@
   var MAX_X_COORDS = 1167;
   var MIN_Y_COORDS = 130;
   var MAX_Y_COORDS = 630;
-  // var MAX_Y_COORDS = 575;
+  var PIN_ARROW_HEIGHT = 22;
 
   window.main.mapPinMajor.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
@@ -33,10 +33,10 @@
       };
 
       var currentY = window.main.mapPinMajor.offsetTop - shift.y;
-      if (currentY > MAX_Y_COORDS - window.main.mapPinMajor.clientHeight - 22) {
-        currentY = MAX_Y_COORDS - window.main.mapPinMajor.clientHeight - 22;
-      } else if (currentY < MIN_Y_COORDS - window.main.mapPinMajor.clientHeight - 22) {
-        currentY = MIN_Y_COORDS - window.main.mapPinMajor.clientHeight - 22;
+      if (currentY > MAX_Y_COORDS - window.main.mapPinMajor.clientHeight - PIN_ARROW_HEIGHT) {
+        currentY = MAX_Y_COORDS - window.main.mapPinMajor.clientHeight - PIN_ARROW_HEIGHT;
+      } else if (currentY < MIN_Y_COORDS - window.main.mapPinMajor.clientHeight - PIN_ARROW_HEIGHT) {
+        currentY = MIN_Y_COORDS - window.main.mapPinMajor.clientHeight - PIN_ARROW_HEIGHT;
       }
 
       var currentX = window.main.mapPinMajor.offsetLeft - shift.x;
@@ -64,6 +64,7 @@
 
   window.dialog = {
     START_X_COORDS: START_X_COORDS,
-    START_Y_COORDS: START_Y_COORDS
+    START_Y_COORDS: START_Y_COORDS,
+    PIN_ARROW_HEIGHT: PIN_ARROW_HEIGHT
   };
 })();

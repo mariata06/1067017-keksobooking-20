@@ -79,6 +79,9 @@
     return offerDescription;
   };
 
+  var mapClickActivation = function () {};
+  var mapKeydownActivation = function () {};
+
   var activateMap = function () {
     window.backend.load(function (offers) {
       var fragment = document.createDocumentFragment();
@@ -94,14 +97,17 @@
       }
       similarListPins.appendChild(fragment);
 
-      // делегирование
-      similarListPins.addEventListener('click', function (event) {
+      // делегирование по click
+      mapClickActivation = function (event) {
         if (event.target.className !== 'map__overlay') {
           window.card.activateOffer(event.target.alt, offers);
         }
-      });
+      };
 
-      similarListPins.addEventListener('keydown', function (event) {
+      similarListPins.addEventListener('click', mapClickActivation);
+
+      // делегирование по keydown
+      mapKeydownActivation = function (event) {
         if (event.key === 'Enter') {
           event.preventDefault();
           // проверка, что не маффин
@@ -113,12 +119,13 @@
         if (event.key === 'Escape') {
           clearOffer();
         }
-      });
+      };
+
+      similarListPins.addEventListener('keydown', mapKeydownActivation);
 
       map.classList.remove('map--faded');
     }, window.main.doIfError);
 
-    // так?
     window.main.mapPinMajor.removeEventListener('keydown', window.main.keydownActivation);
   };
 
@@ -138,6 +145,8 @@
     renderSuccess: renderSuccess,
     renderError: renderError,
     similarListPins: similarListPins,
-    map: map
+    map: map,
+    mapClickActivation: mapClickActivation,
+    mapKeydownActivation: mapKeydownActivation
   };
 })();

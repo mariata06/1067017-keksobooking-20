@@ -135,12 +135,7 @@
 
   function handleFiles(file, divAdFormPhoto, isAvatar) {
     var img = document.createElement('img');
-
-    if (isAvatar) {
-      img.classList.add('avatarImg');
-    } else {
-      img.classList.add('housingImg');
-    }
+    img.classList.add(isAvatar ? 'avatarImg' : 'housingImg');
 
     img.height = divAdFormPhoto.offsetHeight;
     img.width = divAdFormPhoto.offsetWidth;
