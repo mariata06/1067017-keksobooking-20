@@ -60,6 +60,16 @@
 
     window.offers.map.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
+
+    var onMapMouseleave = function () {
+      // evt.preventDefault();
+      window.offers.map.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mousedown', window.main.startMap);
+      document.removeEventListener('mouseup', onMouseUp);
+      window.offers.map.removeEventListener('mouseleave', onMapMouseleave);
+    };
+
+    window.offers.map.addEventListener('mouseleave', onMapMouseleave);
   });
 
   window.dialog = {

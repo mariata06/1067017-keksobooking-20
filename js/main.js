@@ -87,7 +87,7 @@
 
   mapPinMajor.addEventListener('keydown', keydownActivation);
 
-  var successEscape = function (event) {
+  var onClosePopupSuccessKeydown = function (event) {
     if (event.key === 'Escape') {
       event.preventDefault();
       var currentSuccess = successBlock.querySelector('.success');
@@ -95,7 +95,7 @@
         successBlock.removeChild(currentSuccess);
       }
 
-      document.removeEventListener('keydown', successEscape);
+      document.removeEventListener('keydown', onClosePopupSuccessKeydown);
     }
   };
 
@@ -107,14 +107,14 @@
       if (currentSuccess !== null) {
         successBlock.removeChild(currentSuccess);
       }
-      document.removeEventListener('keydown', successEscape);
+      document.removeEventListener('keydown', onClosePopupSuccessKeydown);
     });
 
-    document.addEventListener('keydown', successEscape);
+    document.addEventListener('keydown', onClosePopupSuccessKeydown);
     clearPins();
   };
 
-  var errorEscape = function (event) {
+  var onClosePopupeErrorKeydown = function (event) {
     if (event.key === 'Escape') {
       event.preventDefault();
       var currentError = errorBlock.querySelector('.error');
@@ -122,7 +122,7 @@
         errorBlock.removeChild(currentError);
       }
 
-      document.removeEventListener('keydown', errorEscape);
+      document.removeEventListener('keydown', onClosePopupeErrorKeydown);
     }
   };
 
@@ -134,9 +134,8 @@
       var currentError = errorBlock.querySelector('.error');
       if (currentError !== null) {
         errorBlock.removeChild(currentError);
+        document.removeEventListener('keydown', onClosePopupeErrorKeydown);
       }
-
-      document.removeEventListener('keydown', errorEscape);
     });
 
     errorButton.addEventListener('click', function () {
@@ -144,7 +143,7 @@
       errorBlock.removeChild(currentError);
     });
 
-    document.addEventListener('keydown', errorEscape);
+    document.addEventListener('keydown', onClosePopupeErrorKeydown);
     clearPins();
   };
 
@@ -214,6 +213,7 @@
     startMap: startMap,
     mapPinMajor: mapPinMajor,
     doIfError: doIfError,
-    keydownActivation: keydownActivation
+    keydownActivation: keydownActivation,
+    resetForm: resetForm
   };
 })();

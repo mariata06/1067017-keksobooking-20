@@ -76,6 +76,9 @@
     }
 
     offerDescription.querySelector('.popup__avatar').src = variantOffer.author.avatar;
+
+    document.addEventListener('keydown', onCloseOfferKeydown);
+
     return offerDescription;
   };
 
@@ -131,6 +134,13 @@
     }, window.main.doIfError);
 
     window.main.mapPinMajor.removeEventListener('keydown', window.main.keydownActivation);
+  };
+
+  var onCloseOfferKeydown = function (event) {
+    if (event.key === 'Escape') {
+      clearOffer();
+      document.removeEventListener('keydown', onCloseOfferKeydown);
+    }
   };
 
   var clearOffer = function () {
