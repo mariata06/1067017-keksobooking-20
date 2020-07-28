@@ -152,6 +152,8 @@
   window.validation = {
     adForm: adForm,
     avatarPreview: avatarPreview,
-    isEmptyAdPhoto: isEmptyAdPhoto
+    isEmptyAdPhoto: isEmptyAdPhoto,
+    pricePerNight: pricePerNight,
+    typeOfHousing: typeOfHousing
   };
 })();

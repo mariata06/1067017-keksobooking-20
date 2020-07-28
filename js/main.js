@@ -87,25 +87,43 @@
 
   mapPinMajor.addEventListener('keydown', keydownActivation);
 
+  var successEscape = function (event) {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      var currentSuccess = successBlock.querySelector('.success');
+      if (currentSuccess !== null) {
+        successBlock.removeChild(currentSuccess);
+      }
+
+      document.removeEventListener('keydown', successEscape);
+    }
+  };
+
   var doIfSuccess = function () {
     successBlock.appendChild(window.offers.renderSuccess());
+
     successBlock.addEventListener('click', function () {
       var currentSuccess = successBlock.querySelector('.success');
       if (currentSuccess !== null) {
         successBlock.removeChild(currentSuccess);
       }
+      document.removeEventListener('keydown', successEscape);
     });
 
-    document.addEventListener('keydown', function (event) {
-      if (event.key === 'Escape') {
-        event.preventDefault();
-        var currentSuccess = successBlock.querySelector('.success');
-        if (currentSuccess !== null) {
-          successBlock.removeChild(currentSuccess);
-        }
-      }
-    });
+    document.addEventListener('keydown', successEscape);
     clearPins();
+  };
+
+  var errorEscape = function (event) {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      var currentError = errorBlock.querySelector('.error');
+      if (currentError !== null) {
+        errorBlock.removeChild(currentError);
+      }
+
+      document.removeEventListener('keydown', errorEscape);
+    }
   };
 
   var doIfError = function () {
@@ -117,6 +135,8 @@
       if (currentError !== null) {
         errorBlock.removeChild(currentError);
       }
+
+      document.removeEventListener('keydown', errorEscape);
     });
 
     errorButton.addEventListener('click', function () {
@@ -124,15 +144,7 @@
       errorBlock.removeChild(currentError);
     });
 
-    document.addEventListener('keydown', function (event) {
-      if (event.key === 'Escape') {
-        event.preventDefault();
-        var currentError = errorBlock.querySelector('.error');
-        if (currentError !== null) {
-          errorBlock.removeChild(currentError);
-        }
-      }
-    });
+    document.addEventListener('keydown', errorEscape);
     clearPins();
   };
 
@@ -147,6 +159,7 @@
     clearPins();
     window.validation.adForm.classList.add('ad-form--disabled');
     window.settings.mapFiltersForm.classList.add('ad-form--disabled');
+    window.validation.pricePerNight.placeholder = window.util.MIN_PRICE[window.validation.typeOfHousing.value];
   });
 
   var clearPins = function () {
@@ -162,7 +175,6 @@
   resetButton.addEventListener('click', function () {
     resetForm();
     clearPins();
-
   });
 
   var resetForm = function () {
@@ -191,8 +203,10 @@
     deactivate(window.settings.selectFilters);
 
     window.settings.mapFiltersForm.reset();
-    window.offers.similarListPins.removeEventListener('click', window.offers.mapClickActivation);
-    window.offers.similarListPins.removeEventListener('keydown', window.offers.mapKeydownActivation);
+    window.offers.similarListPins.removeEventListener('click', window.offers.onActiveMapClick);
+    window.offers.similarListPins.removeEventListener('keydown', window.offers.onActiveMapKeydown);
+    window.offers.clearOffer();
+    window.validation.pricePerNight.placeholder = window.util.MIN_PRICE[window.validation.typeOfHousing.value];
   };
 
   window.main = {

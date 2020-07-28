@@ -79,8 +79,8 @@
     return offerDescription;
   };
 
-  var mapClickActivation = function () {};
-  var mapKeydownActivation = function () {};
+  var onActiveMapClick = function () {};
+  var onActiveMapKeydown = function () {};
 
   var activateMap = function () {
     window.backend.load(function (offers) {
@@ -98,16 +98,18 @@
       similarListPins.appendChild(fragment);
 
       // делегирование по click
-      mapClickActivation = function (event) {
+      onActiveMapClick = function (event) {
         if (event.target.className !== 'map__overlay') {
           window.card.activateOffer(event.target.alt, offers);
         }
       };
 
-      similarListPins.addEventListener('click', mapClickActivation);
+      window.offers.onActiveMapClick = onActiveMapClick;
+
+      similarListPins.addEventListener('click', onActiveMapClick);
 
       // делегирование по keydown
-      mapKeydownActivation = function (event) {
+      onActiveMapKeydown = function (event) {
         if (event.key === 'Enter') {
           event.preventDefault();
           // проверка, что не маффин
@@ -121,7 +123,9 @@
         }
       };
 
-      similarListPins.addEventListener('keydown', mapKeydownActivation);
+      window.offers.onActiveMapKeydown = onActiveMapKeydown;
+
+      similarListPins.addEventListener('keydown', onActiveMapKeydown);
 
       map.classList.remove('map--faded');
     }, window.main.doIfError);
@@ -146,7 +150,7 @@
     renderError: renderError,
     similarListPins: similarListPins,
     map: map,
-    mapClickActivation: mapClickActivation,
-    mapKeydownActivation: mapKeydownActivation
+    onActiveMapClick: onActiveMapClick,
+    onActiveMapKeydown: onActiveMapKeydown
   };
 })();
