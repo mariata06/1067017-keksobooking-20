@@ -10,6 +10,7 @@
 
   // блокировка формы
   window.validation.adForm.classList.add('ad-form--disabled');
+  addressInput.setAttribute('readonly', true);
 
   var setAddress = function (isRound) {
     var xCoordinate = mapPinMajor.style.left;
@@ -20,8 +21,6 @@
     } else {
       addressInput.value = Math.round((Number(xCoordinate.substr(0, xCoordinate.length - 2)) + mapPinMajor.clientWidth / 2)) + ', ' + Math.round(Number(yCoordinate.substr(0, yCoordinate.length - 2)) + mapPinMajor.clientHeight + window.dialog.PIN_ARROW_HEIGHT);
     }
-
-    addressInput.setAttribute('readonly', true);
   };
 
   // координаты большой круглой метки после открытия страницы, но до активации карты
@@ -68,13 +67,13 @@
     }
   };
 
-  var keydownActivation = function (evt) {
+  var onActivatePageKeydown = function (evt) {
     if (evt.key === 'Enter') {
       activate();
     }
   };
 
-  mapPinMajor.addEventListener('keydown', keydownActivation);
+  mapPinMajor.addEventListener('keydown', onActivatePageKeydown);
 
   var onClosePopupSuccessKeydown = function (event) {
     if (event.key === 'Escape') {
@@ -103,7 +102,7 @@
     clearPins();
   };
 
-  var onClosePopupeErrorKeydown = function (event) {
+  var onClosePopupErrorKeydown = function (event) {
     if (event.key === 'Escape') {
       event.preventDefault();
       var currentError = errorBlock.querySelector('.error');
@@ -111,7 +110,7 @@
         errorBlock.removeChild(currentError);
       }
 
-      document.removeEventListener('keydown', onClosePopupeErrorKeydown);
+      document.removeEventListener('keydown', onClosePopupErrorKeydown);
     }
   };
 
@@ -123,7 +122,7 @@
       var currentError = errorBlock.querySelector('.error');
       if (currentError !== null) {
         errorBlock.removeChild(currentError);
-        document.removeEventListener('keydown', onClosePopupeErrorKeydown);
+        document.removeEventListener('keydown', onClosePopupErrorKeydown);
       }
     });
 
@@ -132,7 +131,7 @@
       errorBlock.removeChild(currentError);
     });
 
-    document.addEventListener('keydown', onClosePopupeErrorKeydown);
+    document.addEventListener('keydown', onClosePopupErrorKeydown);
     clearPins();
   };
 
@@ -152,7 +151,7 @@
 
   var clearPins = function () {
     Array.from(window.offers.similarListPins.children).forEach(function (el) {
-      if (el.className.indexOf('map__pin--offer') !== -1) {
+      if (el.classList.contains('map__pin--offer')) {
         window.offers.similarListPins.removeChild(el);
       }
       flagMapActivation = false;
@@ -196,7 +195,7 @@
     window.offers.clearOffer();
     window.validation.pricePerNight.placeholder = window.util.MIN_PRICE[window.validation.typeOfHousing.value];
 
-    mapPinMajor.addEventListener('keydown', keydownActivation);
+    mapPinMajor.addEventListener('keydown', onActivatePageKeydown);
   };
 
   window.main = {
@@ -204,7 +203,7 @@
     startMap: startMap,
     mapPinMajor: mapPinMajor,
     doIfError: doIfError,
-    keydownActivation: keydownActivation,
+    onActivatePageKeydown: onActivatePageKeydown,
     resetForm: resetForm,
     setAddress: setAddress
   };

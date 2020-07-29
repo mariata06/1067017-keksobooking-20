@@ -6,9 +6,9 @@
     window.offers.clearOffer();
 
     var fragment = document.createDocumentFragment();
-    Array.from(offers).forEach(function (element) {
-      if (offerName === element.offer.title) {
-        fragment.appendChild(window.offers.renderOffer(element));
+    offers.forEach(function (item) {
+      if (offerName === item.offer.title) {
+        fragment.appendChild(window.offers.renderOffer(item));
 
         var popup = fragment.querySelector('.popup');
         var popupClose = popup.querySelector('.popup__close');

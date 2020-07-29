@@ -14,6 +14,13 @@
 
   var getCheckedCheckboxes = function () {
     var selectedCheckboxes = mapFiltersForm.querySelectorAll('.map__checkbox');
+
+    /*
+    // разобраться с альтернативой
+    return selectedCheckboxes.filter(function (checkbox) {
+      return checkbox.checked;
+    })
+    */
     var checkedValues = [];
     selectedCheckboxes.forEach(function (checkbox) {
       if (checkbox.checked) {
@@ -36,8 +43,7 @@
   });
 
   var isSelectedType = function (houseType, type) {
-
-    return (type === 'any') ? true : (houseType === type);
+    return type === 'any' || houseType === type;
   };
 
   var isSelectedPrice = function (housePrice, priceRange) {
@@ -67,16 +73,20 @@
   };
 
   var isSelectedRooms = function (houseRooms, rooms) {
-
-    return (rooms === 'any') ? true : (houseRooms === rooms);
+    return rooms === 'any' || houseRooms === rooms;
   };
 
   var isSelectedGuests = function (houseGuests, guests) {
-
-    return (guests === 'any') ? true : (houseGuests === guests);
+    return guests === 'any' || houseGuests === guests;
   };
 
   var isCheckedFeatures = function (houseFeatures, checkedFeatures) {
+    /*
+    // разобраться с альтернативой
+    var isFit = !checkedFeatures.some(function (element) {
+      return houseFeatures.indexOf(element) === -1;
+    });
+    */
     var isFit = true;
     checkedFeatures.forEach(function (element) {
       if (houseFeatures.indexOf(element) === -1) {

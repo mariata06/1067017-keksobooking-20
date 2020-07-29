@@ -17,8 +17,9 @@
 
   var renderAdvert = function (variantStorage) {
     var advertisement = newAdvert.cloneNode(true);
-    advertisement.querySelector('.map__pin--image').src = variantStorage.author.avatar;
-    advertisement.querySelector('.map__pin--image').alt = variantStorage.offer.title;
+    var pin = advertisement.querySelector('.map__pin--image')
+    pin.src = variantStorage.author.avatar;
+    pin.alt = variantStorage.offer.title;
     advertisement.style.left = variantStorage.location.x - window.util.PIN_X + 'px';
     advertisement.style.top = variantStorage.location.y - window.util.PIN_Y + 'px';
 
@@ -66,10 +67,11 @@
     if (variantOffer.offer.photos.length === 0) {
       photoBlock.classList.add('hidden');
     } else {
-      offerDescription.querySelector('.popup__photo').src = variantOffer.offer.photos[0];
+      var photoItem = offerDescription.querySelector('.popup__photo');
+      photoItem.src = variantOffer.offer.photos[0];
 
       variantOffer.offer.photos.forEach(function (element) {
-        var photo = offerDescription.querySelector('.popup__photo').cloneNode(true);
+        var photo = photoItem.cloneNode(true);
         photo.src = element;
         photoBlock.appendChild(photo);
       });
@@ -82,8 +84,8 @@
     return offerDescription;
   };
 
-  var onActiveMapClick = function () {};
-  var onActiveMapKeydown = function () {};
+  var onActiveMapClick = null;
+  var onActiveMapKeydown = null;
 
   var activateMap = function () {
     window.backend.load(function (offers) {
@@ -133,7 +135,7 @@
       map.classList.remove('map--faded');
     }, window.main.doIfError);
 
-    window.main.mapPinMajor.removeEventListener('keydown', window.main.keydownActivation);
+    window.main.mapPinMajor.removeEventListener('keydown', window.main.onActivatePageKeydown);
   };
 
   var onCloseOfferKeydown = function (event) {
@@ -144,9 +146,10 @@
   };
 
   var clearOffer = function () {
-    Array.from(pinBlock.children).forEach(function (element) {
-      pinBlock.removeChild(element);
-    });
+    pinBlock.innerHTML = '';
+    //Array.from(pinBlock.children).forEach(function (element) {
+    //  pinBlock.removeChild(element);
+    //});
   };
 
   window.offers = {

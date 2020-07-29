@@ -57,7 +57,6 @@
       upEvt.preventDefault();
 
       window.offers.map.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mousedown', window.main.startMap);
       document.removeEventListener('mouseup', onMouseUp);
     };
 
@@ -67,7 +66,6 @@
     var onMapMouseleave = function () {
       evt.preventDefault();
       window.offers.map.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mousedown', window.main.startMap);
       document.removeEventListener('mouseup', onMouseUp);
       window.offers.map.removeEventListener('mouseleave', onMapMouseleave);
     };
