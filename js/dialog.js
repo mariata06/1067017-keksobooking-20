@@ -48,6 +48,9 @@
 
       window.main.mapPinMajor.style.top = (currentY) + 'px';
       window.main.mapPinMajor.style.left = (currentX) + 'px';
+
+      // false - значит не круглый маффин, а уже остроконечный пин
+      window.main.setAddress(false);
     };
 
     var onMouseUp = function (upEvt) {
@@ -62,7 +65,7 @@
     document.addEventListener('mouseup', onMouseUp);
 
     var onMapMouseleave = function () {
-      // evt.preventDefault();
+      evt.preventDefault();
       window.offers.map.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mousedown', window.main.startMap);
       document.removeEventListener('mouseup', onMouseUp);

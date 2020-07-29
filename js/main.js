@@ -64,10 +64,6 @@
     }
   }
 
-  mapPinMajor.addEventListener('mousemove', function () {
-    setAddress(isRoundMuffin);
-  });
-
   var keydownActivation = function (evt) {
     if (evt.key === 'Enter') {
       if (!flagMapActivation) {
@@ -214,6 +210,7 @@
     mapPinMajor: mapPinMajor,
     doIfError: doIfError,
     keydownActivation: keydownActivation,
-    resetForm: resetForm
+    resetForm: resetForm,
+    setAddress: setAddress
   };
 })();
