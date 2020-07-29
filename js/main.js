@@ -79,6 +79,7 @@
       isRoundMuffin = false;
       setAddress(isRoundMuffin);
     }
+
   };
 
   mapPinMajor.addEventListener('keydown', keydownActivation);
@@ -202,6 +203,8 @@
     window.offers.similarListPins.removeEventListener('keydown', window.offers.onActiveMapKeydown);
     window.offers.clearOffer();
     window.validation.pricePerNight.placeholder = window.util.MIN_PRICE[window.validation.typeOfHousing.value];
+
+    mapPinMajor.addEventListener('keydown', keydownActivation);
   };
 
   window.main = {
