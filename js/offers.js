@@ -17,7 +17,7 @@
 
   var renderAdvert = function (variantStorage) {
     var advertisement = newAdvert.cloneNode(true);
-    var pin = advertisement.querySelector('.map__pin--image')
+    var pin = advertisement.querySelector('.map__pin--image');
     pin.src = variantStorage.author.avatar;
     pin.alt = variantStorage.offer.title;
     advertisement.style.left = variantStorage.location.x - window.util.PIN_X + 'px';
@@ -147,9 +147,6 @@
 
   var clearOffer = function () {
     pinBlock.innerHTML = '';
-    //Array.from(pinBlock.children).forEach(function (element) {
-    //  pinBlock.removeChild(element);
-    //});
   };
 
   window.offers = {

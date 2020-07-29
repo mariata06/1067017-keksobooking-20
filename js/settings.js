@@ -14,13 +14,6 @@
 
   var getCheckedCheckboxes = function () {
     var selectedCheckboxes = mapFiltersForm.querySelectorAll('.map__checkbox');
-
-    /*
-    // разобраться с альтернативой
-    return selectedCheckboxes.filter(function (checkbox) {
-      return checkbox.checked;
-    })
-    */
     var checkedValues = [];
     selectedCheckboxes.forEach(function (checkbox) {
       if (checkbox.checked) {
@@ -81,12 +74,6 @@
   };
 
   var isCheckedFeatures = function (houseFeatures, checkedFeatures) {
-    /*
-    // разобраться с альтернативой
-    var isFit = !checkedFeatures.some(function (element) {
-      return houseFeatures.indexOf(element) === -1;
-    });
-    */
     var isFit = true;
     checkedFeatures.forEach(function (element) {
       if (houseFeatures.indexOf(element) === -1) {
