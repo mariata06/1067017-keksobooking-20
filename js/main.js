@@ -47,39 +47,31 @@
   deactivate(window.settings.fieldsetFilters);
   deactivate(window.settings.selectFilters);
 
-  function startMap(e) {
-    if (typeof e === 'object' && e.button === 0) {
-      if (!flagMapActivation) {
-        window.offers.activateMap();
-        flagMapActivation = true;
-      }
-
-      activateElementsOfForm(fieldsetForms);
-      activateElementsOfForm(window.settings.fieldsetFilters);
-      activateElementsOfForm(window.settings.selectFilters);
-      window.validation.adForm.classList.remove('ad-form--disabled');
-
-      isRoundMuffin = false;
-      setAddress(isRoundMuffin);
+  var activate = function () {
+    if (!flagMapActivation) {
+      window.offers.activateMap();
+      flagMapActivation = true;
     }
-  }
+
+    activateElementsOfForm(fieldsetForms);
+    activateElementsOfForm(window.settings.fieldsetFilters);
+    activateElementsOfForm(window.settings.selectFilters);
+    window.validation.adForm.classList.remove('ad-form--disabled');
+
+    isRoundMuffin = false;
+    setAddress(isRoundMuffin);
+  };
+
+  var startMap = function (e) {
+    if (typeof e === 'object' && e.button === 0) {
+      activate();
+    }
+  };
 
   var keydownActivation = function (evt) {
     if (evt.key === 'Enter') {
-      if (!flagMapActivation) {
-        window.offers.activateMap();
-        flagMapActivation = true;
-      }
-
-      activateElementsOfForm(fieldsetForms);
-      activateElementsOfForm(window.settings.fieldsetFilters);
-      activateElementsOfForm(window.settings.selectFilters);
-      window.validation.adForm.classList.remove('ad-form--disabled');
-
-      isRoundMuffin = false;
-      setAddress(isRoundMuffin);
+      activate();
     }
-
   };
 
   mapPinMajor.addEventListener('keydown', keydownActivation);
